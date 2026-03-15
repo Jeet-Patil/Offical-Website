@@ -1,30 +1,39 @@
 import EventCard from './EventCard';
+import sharkverseImg from '../assets/genesis/sharkverse.jpeg';
+import unleash1Img from '../assets/unleash1.png';
+import unleash2Img from '../assets/unleash2.png';
 
 const Events = () => {
   const eventsData = [
     {
       id: 1,
-      title: "ECLIPSE - The Game Pitch Arena",
-      tag: "Gaming Competition",
-      description: "Step into the spotlight at ECLIPSE, where aspiring game developers pitch their innovative game concepts to a panel of industry experts. This thrilling event offers a platform to showcase your creativity, receive valuable feedback, and potentially secure support to bring your game idea to life. Whether you're a solo developer or part of a team, ECLIPSE is your chance to shine in the gaming world.",
-      image: "/src/assets/eclipse.jpeg",
-      isLive: true
+      slug: "sharkverse",
+      title: "Sharkverse",
+      tag: "Startup Pitch Arena",
+      description: "Enter Sharkverse and pitch your startup vision to a panel of evaluators. Present your idea, defend your business model, and compete to prove why your concept deserves the spotlight.",
+      image: sharkverseImg,
+      isLive: true,
+      comingSoon: false
     },
     {
       id: 2,
-      title: "Cyber Sabha",
-      tag: "Tech Debate",
-      description: "Cyber Sabha is a Yuva Parliament–style discussion forum where teams represent leading organizations like Google, Meta, RBI, and Government bodies (MeitY). Participants debate and deliberate on critical issues related to technology, cybersecurity, digital governance, and policy-making, simulating real-world decision-making at the highest level.",
-      image: "/src/assets/cybersabha.jpeg",
-      isLive: false
+      slug: "bid-n-build",
+      title: "Bid N Build",
+      tag: "Strategy & Innovation",
+      description: "Bid smart and build better in this strategic challenge. Teams compete to acquire resources through bidding rounds and then transform them into impactful, creative project outcomes.",
+      image: unleash1Img,
+      isLive: true,
+      comingSoon: true
     },
     {
       id: 3,
-      title: "UCL – Ultimate Coding League",
-      tag: "Coding Championship",
-      description: "Battle it out in the ultimate coding competition! Test your programming skills, solve challenging problems, and compete against the best coders. UCL is the perfect platform to showcase your technical prowess and learn from fellow competitors in a high-energy environment.",
-      image: "/src/assets/ucl.jpeg",
-      isLive: true
+      slug: "treasure-hunt",
+      title: "Tresure Hunt",
+      tag: "Adventure Challenge",
+      description: "Follow clues, solve fast-paced puzzles, and race through checkpoints in Tresure Hunt. This event blends logic, teamwork, and speed into a high-energy campus adventure.",
+      image: unleash2Img,
+      isLive: true,
+      comingSoon: true
     }
   ];
 
@@ -33,7 +42,7 @@ const Events = () => {
       {/* Animated Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-purple-900/10 to-transparent"></div>
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#bc0034]/5 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
@@ -52,9 +61,9 @@ const Events = () => {
           </h2>
           {/* Decorative underline */}
           <div className="flex items-center justify-center gap-3">
-            <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-red-500"></div>
-            <div className="h-1 w-20 bg-gradient-to-r from-red-500 via-purple-500 to-red-500 rounded-full"></div>
-            <div className="h-[2px] w-12 bg-gradient-to-l from-transparent to-red-500"></div>
+            <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-[#bc0034]"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-[#bc0034] via-purple-500 to-[#bc0034] rounded-full"></div>
+            <div className="h-[2px] w-12 bg-gradient-to-l from-transparent to-[#bc0034]"></div>
           </div>
           <p className="text-gray-400 mt-6 text-lg uppercase tracking-widest">Upcoming & Live</p>
         </div>
@@ -73,6 +82,8 @@ const Events = () => {
                 description={event.description}
                 image={event.image}
                 isLive={event.isLive}
+                eventSlug={event.slug}
+                comingSoon={event.comingSoon}
               />
             </div>
           ))}

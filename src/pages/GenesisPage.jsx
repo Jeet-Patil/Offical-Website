@@ -2,54 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
-const events = [
-  {
-    icon: '💻',
-    name: 'Hackathon',
-    slug: 'hackathon',
-    category: 'Team Build Challenge',
-    description: '24-hour intensive build challenge. Form a team, pick a problem statement, and ship a working prototype.',
-    tag: 'Team · 2–4 Members',
-    accentColor: '#ff4444',
-  },
-  {
-    icon: '📄',
-    name: 'Paper Presentation',
-    slug: 'paper-presentation',
-    category: 'Research & Innovation',
-    description: 'Present your research or innovative ideas to a panel of judges. Showcase your technical writing and oration skills.',
-    tag: 'Individual / Duo',
-    accentColor: '#aa66ff',
-  },
-  {
-    icon: '🎨',
-    name: 'UI/UX Challenge',
-    slug: 'uiux-challenge',
-    category: 'Design Sprint',
-    description: 'Design intuitive and visually compelling user interfaces within a fixed time limit using provided briefs.',
-    tag: 'Individual',
-    accentColor: '#44aaff',
-  },
-  {
-    icon: '❓',
-    name: 'Technical Quiz',
-    slug: 'technical-quiz',
-    category: 'Knowledge Battle',
-    description: 'Test your knowledge across CS fundamentals, algorithms, networking, and emerging tech domains.',
-    tag: 'Team · 2 Members',
-    accentColor: '#ffaa22',
-  },
-  {
-    icon: '⌨️',
-    name: 'Coding Contest',
-    slug: 'coding-contest',
-    category: 'Competitive Programming',
-    description: 'Timed problem-solving contest on algorithmic and data structure challenges, from beginner to advanced.',
-    tag: 'Individual',
-    accentColor: '#44ff88',
-  },
-];
+import sharkverseFlyer from '../assets/genesis/sharkverse.jpeg';
 
 const highlights = [
   { icon: '🏆', title: 'Cash Prizes', text: 'Cash prizes & merit certificates for top performers across all events' },
@@ -176,9 +129,6 @@ const GenesisPage = () => {
           ============================== */}
           <header className={`text-center mb-12 sm:mb-16 md:mb-20 transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
             <div className="relative inline-block">
-              {/* Top glow line */}
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-1 rounded-full" style={{ background: 'linear-gradient(to right, transparent, #ef4444, transparent)', boxShadow: '0 0 20px rgba(220,38,38,0.5)' }} />
-
               {/* Badge */}
               <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-1.5 mb-6">
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -228,9 +178,6 @@ const GenesisPage = () => {
                   View Events
                 </a>
               </div>
-
-              {/* Bottom glow */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-40 h-1 rounded-full" style={{ background: 'linear-gradient(to right, transparent, rgba(220,38,38,0.5), transparent)' }} />
             </div>
           </header>
 
@@ -243,58 +190,48 @@ const GenesisPage = () => {
               <div id="events" />
               <SectionTitle sub="Under Genesis">Major Events</SectionTitle>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {events.map((ev) => (
-                  <Link
-                    key={ev.name}
-                    to={`/genesis/events/${ev.slug}`}
-                    className="group flex flex-col rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:border-red-500/30 hover:bg-white/8 transition-all duration-500"
-                  >
-                    {/* Poster area */}
-                    <div className="relative flex items-center justify-center py-10 sm:py-14" style={{ background: 'linear-gradient(135deg, rgba(220,38,38,0.08) 0%, rgba(0,0,0,0.4) 100%)' }}>
-                      {/* Top labels */}
-                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                        <span className="text-white/30 text-[10px] font-bold uppercase tracking-[0.2em]">GENESIS</span>
-                        <span
-                          className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border backdrop-blur-sm"
-                          style={{ color: ev.accentColor, borderColor: `${ev.accentColor}30`, background: `${ev.accentColor}10` }}
-                        >
-                          {ev.tag}
-                        </span>
-                      </div>
-                      {/* Icon */}
-                      <span className="text-6xl sm:text-7xl opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
-                        {ev.icon}
-                      </span>
-                    </div>
+              <div className="w-[90%] max-w-245 mx-auto mt-10 sm:mt-12 mb-8 sm:mb-10 p-8 sm:p-10 rounded-2xl border border-white/10 bg-white/4 backdrop-blur-xl shadow-[0_22px_55px_rgba(0,0,0,0.45),0_0_24px_rgba(220,38,38,0.12)]">
+                <img
+                  src={sharkverseFlyer}
+                  alt="Sharkverse Flyer"
+                  className="w-full h-auto rounded-xl mb-6"
+                  loading="lazy"
+                />
 
-                    {/* Body */}
-                    <div className="flex-1 flex flex-col p-4 sm:p-5 border-t border-white/5">
-                      <h3 className="text-white font-bold text-lg sm:text-xl mb-1 group-hover:text-red-400 transition-colors duration-300">
-                        {ev.name}
-                      </h3>
-                      <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: ev.accentColor }}>
-                        {ev.category}
-                      </p>
-                      <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-4">
-                        {ev.description}
-                      </p>
-                      <span className="inline-flex items-center gap-1.5 text-red-400 text-sm font-medium group-hover:gap-2.5 transition-all duration-300">
-                        Learn More
-                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                      </span>
-                    </div>
+                <p
+                  className="mx-auto max-w-175 text-center text-gray-400 text-sm sm:text-base leading-relaxed mb-6"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  Enter Sharkverse and pitch your startup vision to a panel of evaluators. Present your idea,
+                  defend your business model, and compete to prove why your concept deserves the spotlight.
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                  <Link
+                    to="/genesis/register"
+                    className="px-6 py-2.5 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
+                  >
+                    Register Now
                   </Link>
-                ))}
+                  <Link
+                    to="/genesis/events/sharkverse"
+                    className="inline-flex items-center justify-center gap-1.5 px-6 py-2.5 border border-red-500/40 text-red-300 text-sm font-medium uppercase tracking-wider rounded-full hover:bg-red-500/10 hover:text-red-200 hover:border-red-400/55 hover:scale-105 transition-all duration-300"
+                  >
+                    Learn More
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
+
             </GlassCard>
 
             {/* ==============================
                 WHY ATTEND
             ============================== */}
             <GlassCard delay={200}>
+              <div id="why-attend" />
               <SectionTitle sub="Reasons to be part of the experience">Why Attend Genesis?</SectionTitle>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
@@ -356,7 +293,11 @@ const GenesisPage = () => {
                     className={`rounded-2xl border overflow-hidden transition-all duration-300 ${openFaq === i ? 'border-red-500/30 bg-white/6' : 'border-white/10 bg-white/3 hover:border-white/20'}`}
                   >
                     <button
-                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenFaq(openFaq === i ? null : i);
+                      }}
                       className="w-full flex items-center justify-between px-5 sm:px-6 py-4 text-left transition-all duration-200"
                     >
                       <span className="text-gray-200 text-sm sm:text-base pr-4 font-medium">{faq.q}</span>

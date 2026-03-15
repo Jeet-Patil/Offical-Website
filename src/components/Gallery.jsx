@@ -4,13 +4,9 @@ import GalleryGrid from './GalleryGrid';
 
 // Import Aura E Sport images
 import aura1 from '../assets/img/aura1.jpeg';
-import aura2 from '../assets/img/aura2.jpeg';
-import aura3 from '../assets/img/aura3.jpeg';
 import aura4 from '../assets/img/aura4.jpeg';
 
 // Import Click and Craft images
-import click1 from '../assets/img/click1.jpeg';
-import click2 from '../assets/img/click2.jpeg';
 import click3 from '../assets/img/click3.jpeg';
 import click4 from '../assets/img/click4.jpeg';
 import click5 from '../assets/img/click5.jpeg';
@@ -21,10 +17,7 @@ import click9 from '../assets/img/click9.jpeg';
 
 // Import GDA (Game Pitch) images
 import game1 from '../assets/img/game1.jpeg';
-import game2 from '../assets/img/game2.jpeg';
-import game3 from '../assets/img/game3.jpeg';
 import game4 from '../assets/img/game4.jpeg';
-import game5 from '../assets/img/game5.jpeg';
 import game6 from '../assets/img/game6.jpeg';
 
 // Import Installation images
@@ -90,13 +83,9 @@ const Gallery = () => {
   const images = [
     // Aura E Sport images
     { id: 1, category: 'aura-esport', src: aura1, alt: 'Aura E Sport 1' },
-    { id: 2, category: 'aura-esport', src: aura2, alt: 'Aura E Sport 2' },
-    { id: 3, category: 'aura-esport', src: aura3, alt: 'Aura E Sport 3' },
     { id: 4, category: 'aura-esport', src: aura4, alt: 'Aura E Sport 4' },
     
     // Click and Craft images
-    { id: 5, category: 'click-craft', src: click1, alt: 'Click and Craft 1' },
-    { id: 6, category: 'click-craft', src: click2, alt: 'Click and Craft 2' },
     { id: 7, category: 'click-craft', src: click3, alt: 'Click and Craft 3' },
     { id: 8, category: 'click-craft', src: click4, alt: 'Click and Craft 4' },
     { id: 9, category: 'click-craft', src: click5, alt: 'Click and Craft 5' },
@@ -107,10 +96,7 @@ const Gallery = () => {
     
     // GDA (Game Pitch) images
     { id: 14, category: 'game-pitch', src: game1, alt: 'GDA 1' },
-    { id: 15, category: 'game-pitch', src: game2, alt: 'GDA 2' },
-    { id: 16, category: 'game-pitch', src: game3, alt: 'GDA 3' },
     { id: 17, category: 'game-pitch', src: game4, alt: 'GDA 4' },
-    { id: 18, category: 'game-pitch', src: game5, alt: 'GDA 5' },
     { id: 19, category: 'game-pitch', src: game6, alt: 'GDA 6' },
     
     // Installation images
@@ -174,8 +160,8 @@ const Gallery = () => {
         </h2>
         {/* Decorative underline */}
         <div className="flex items-center justify-center gap-3 mt-4">
-          <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-red-500"></div>
-          <div className="h-1 w-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full"></div>
+          <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-[#bc0034]"></div>
+          <div className="h-1 w-16 bg-gradient-to-r from-[#bc0034] to-orange-500 rounded-full"></div>
           <div className="h-[2px] w-12 bg-gradient-to-l from-transparent to-orange-500"></div>
         </div>
       </div>

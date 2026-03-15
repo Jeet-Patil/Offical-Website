@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const menuItems = [
     { name: 'Home', path: '/', type: 'route' },
-    { name: 'Events', path: '/#events', type: 'hash' },
+    { name: 'Events', path: '/events', type: 'route' },
     { name: 'Alumni', path: '/alumni', type: 'route' },
     { name: 'Committee', path: '/committee', type: 'route' },
     { name: 'Genesis', path: '/genesis', type: 'route' },
@@ -16,18 +16,25 @@ const Navbar = () => {
     { name: 'Contact Us', path: '/contact', type: 'route' },
   ];
 
-  const isActive = (item) => item.type === 'route' && location.pathname === item.path;
+  const isActive = (item) => {
+    if (item.type !== 'route') return false;
+    if (item.path === '/') return location.pathname === '/';
+    return location.pathname === item.path || location.pathname.startsWith(`${item.path}/`);
+  };
 
   return (
-    <nav className="fixed top-6 right-6 lg:right-12 z-50">
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 h-17.5 px-4 lg:px-8 flex items-center justify-end"
+      style={{ fontFamily: "'Roboto Condensed', system-ui, Avenir, Helvetica, Arial, sans-serif" }}
+    >
       {/* Desktop Menu - Pill Container */}
-      <div className="hidden md:flex items-center bg-gradient-to-r from-[#7a0000] to-[#b00000] rounded-full px-2 py-1 shadow-lg">
+      <div className="hidden md:flex items-center h-11 bg-[#970233] rounded-full px-4 py-1.5 shadow-lg whitespace-nowrap">
         {menuItems.map((item) => (
           item.type === 'route' ? (
             <Link
               key={item.name}
               to={item.path}
-              className={`text-white transition-all duration-300 px-4 py-2 text-sm font-medium rounded-full ${
+              className={`inline-flex items-center h-8 text-white transition-all duration-300 px-3 py-1.5 text-sm font-medium rounded-full ${
                 isActive(item) ? 'bg-white/20' : 'hover:bg-white/10'
               }`}
             >
@@ -37,7 +44,7 @@ const Navbar = () => {
             <a
               key={item.name}
               href={item.path}
-              className="text-white hover:bg-white/10 transition-all duration-300 px-4 py-2 text-sm font-medium rounded-full"
+              className="inline-flex items-center h-8 text-white hover:bg-white/10 transition-all duration-300 px-3 py-1.5 text-sm font-medium rounded-full"
             >
               {item.name}
             </a>
@@ -48,16 +55,16 @@ const Navbar = () => {
       {/* Mobile Hamburger */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="md:hidden text-white bg-gradient-to-r from-[#7a0000] to-[#b00000] p-3 rounded-full"
+        className="md:hidden text-white bg-[#970233] p-3 rounded-full"
       >
-        <svg className="w-6 h-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-5 h-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
           {isMenuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
         </svg>
       </button>
 
       {/* Mobile Menu Dropdown */}
       <div className={`md:hidden absolute right-0 top-14 overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="bg-gradient-to-b from-[#7a0000] to-[#b00000] rounded-2xl py-2 min-w-48 shadow-xl">
+        <div className="bg-[#970233] rounded-2xl py-2 min-w-48 shadow-xl">
           {menuItems.map((item) => (
             item.type === 'route' ? (
               <Link

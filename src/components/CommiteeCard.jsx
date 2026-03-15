@@ -2,7 +2,7 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
   return (
     <div 
       className={`
-        group relative flex-shrink-0 w-44 sm:w-48 h-80 sm:h-96 
+        group relative shrink-0 w-44 sm:w-48 h-80 sm:h-96 
         overflow-hidden rounded-lg 
         transition-all duration-400 ease-in-out
         ${isActive 
@@ -19,7 +19,7 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
       />
       
       {/* Dark Gradient Overlay at Bottom */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+      <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent"></div>
 
       {/* Name and Role at Bottom */}
       <div className="absolute bottom-4 left-4 right-4">
@@ -45,7 +45,7 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
           className={`
             text-sm font-medium mt-1 uppercase
             transition-colors duration-400
-            ${isActive ? 'text-red-500' : 'text-red-500/50'}
+            ${isActive ? 'text-[#bc0034]' : 'text-[#bc0034]/50'}
           `}
         >
           {role}

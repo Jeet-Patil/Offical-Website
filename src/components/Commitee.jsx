@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import CommitteeCard from './CommiteeCard';
-import adityaImg from '../assets/members/aditya.svg';
+import adityaImg from '../assets/members/aditya1.png';
 import ayushiImg from '../assets/members/ayushi.svg';
 import vedantImg from '../assets/members/vedant.svg';
 import jeetImg from '../assets/members/jeet.svg';
@@ -43,7 +43,7 @@ const Committee = () => {
   const touchEndX = useRef(0);
   const isSwiping = useRef(false);
 
-  // Card dimensions
+  // Card dimensions - responsive
   const cardWidth = 208; // w-48 (192px) + 16px gap
 
   // Calculate active real index for dot indicators (0 to totalSlides-1)
@@ -169,19 +169,19 @@ const Committee = () => {
             drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]
           "
         >
-          Committee <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">2025-26</span>
+          Committee <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bc0034] to-orange-500">2025-26</span>
         </h2>
         {/* Decorative underline */}
         <div className="flex items-center justify-center gap-3 mt-4">
-          <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-red-500"></div>
-          <div className="h-1 w-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full"></div>
+          <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-[#bc0034]"></div>
+          <div className="h-1 w-16 bg-gradient-to-r from-[#bc0034] to-orange-500 rounded-full"></div>
           <div className="h-[2px] w-12 bg-gradient-to-l from-transparent to-orange-500"></div>
         </div>
       </div>
 
       {/* Cards Container */}
       <div 
-        className="relative bg-[#1a1a1a]/50 backdrop-blur-sm py-12 overflow-hidden touch-pan-y"
+        className="relative bg-[#1a1a1a]/50 backdrop-blur-sm py-12 overflow-x-auto overflow-y-hidden touch-pan-y"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
@@ -191,7 +191,7 @@ const Committee = () => {
         {/* Previous Button */}
         <button
           onClick={handlePrev}
-          className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white hover:text-red-500 transition-colors duration-300"
+          className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-white hover:text-[#bc0034] transition-colors duration-300"
         >
           <svg className="w-7 h-7 sm:w-10 sm:h-10" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M15 19l-7-7 7-7"></path>
@@ -205,7 +205,7 @@ const Committee = () => {
             className="flex gap-4 items-center"
             style={{ 
               transform: `translateX(calc(50% + ${translateX}px - ${cardWidth / 2}px))`,
-              transition: enableTransition ? 'transform 500ms cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
+              transition: enableTransition ? 'transform 500ms cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
             }}
             onTransitionEnd={handleTransitionEnd}
           >
@@ -231,7 +231,7 @@ const Committee = () => {
         {/* Next Button */}
         <button
           onClick={handleNext}
-          className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white hover:text-red-500 transition-colors duration-300"
+          className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-white hover:text-[#bc0034] transition-colors duration-300"
         >
           <svg className="w-7 h-7 sm:w-10 sm:h-10" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M9 5l7 7-7 7"></path>
@@ -247,7 +247,7 @@ const Committee = () => {
               className={`
                 w-2 h-2 rounded-full transition-all duration-300
                 ${index === activeRealIndex 
-                  ? 'bg-red-500 w-6' 
+                  ? 'bg-[#bc0034] w-6' 
                   : 'bg-white/40 hover:bg-white/60'
                 }
               `}
@@ -257,7 +257,7 @@ const Committee = () => {
 
         {/* View All Button */}
         <div className="mt-6 flex justify-center sm:justify-end sm:pr-16">
-          <button className="group inline-flex items-center justify-center px-6 py-2 text-white font-medium bg-red-700 hover:bg-red-600 rounded transition-all duration-300">
+          <button className="group inline-flex items-center justify-center px-6 py-2 text-white font-medium bg-[#bc0034] hover:bg-[#a00030] rounded transition-all duration-300">
             View All
             <svg
               className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300"
