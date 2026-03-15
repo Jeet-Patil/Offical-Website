@@ -1,8 +1,12 @@
 import backgroundImage from '../assets/bg.png';
+import ParticleHeroBackground from './ParticleHeroBackground';
 
 const Hero = () => {
   return (
     <section className="relative min-h-screen bg-black overflow-hidden">
+
+      {/* Interactive Particle Background */}
+      <ParticleHeroBackground />
 
       {/* Logo Text - Top Left */}
       <div className="absolute top-6 left-6 lg:left-12 z-50 max-w-[60%] sm:max-w-none">
@@ -11,7 +15,7 @@ const Hero = () => {
       </div>
 
       {/* CSS Grid Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] min-h-screen">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[45%_55%] min-h-screen">
         
         {/* Left Column - Background Image Only */}
         <div className="relative min-h-[40vh] lg:min-h-0">
@@ -23,7 +27,7 @@ const Hero = () => {
               className="w-full h-full object-cover"
             />
             {/* Dark Red Overlay Gradient - blends into right side */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-[#7a0000]/30 to-black"></div>
+            <div className="absolute inset-0 bg-linear-to-r from-black/50 via-[#7a0000]/30 to-black"></div>
           </div>
         </div>
 
