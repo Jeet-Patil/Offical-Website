@@ -155,6 +155,7 @@ const RegistrationPage = () => {
     } rounded-xl px-4 py-3.5 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-red-500 transition-colors duration-200`;
 
   const labelClass = 'block text-gray-200 text-sm sm:text-base font-semibold mb-2';
+  const additionalMembersCount = Math.max(Number(formData.teamSize || 1) - 1, 0);
 
   if (isSubmitted) {
     return (
@@ -343,22 +344,14 @@ const RegistrationPage = () => {
                   <div className="hidden sm:block" />
                 </div>
 
-                <div
-                  className="overflow-hidden transition-all duration-300 ease-out"
-                  style={{
-                    maxHeight: Math.max(Number(formData.teamSize || 1) - 1, 0) > 0
-                      ? `${Math.max(Number(formData.teamSize || 1) - 1, 0) * 140}px`
-                      : '0px',
-                    opacity: Math.max(Number(formData.teamSize || 1) - 1, 0) > 0 ? 1 : 0,
-                  }}
-                >
+                {additionalMembersCount > 0 && (
                   <div className="space-y-4 pt-1">
                     {formData.additionalMembers
-                      .slice(0, Math.max(Number(formData.teamSize || 1) - 1, 0))
+                      .slice(0, additionalMembersCount)
                       .map((member, idx) => {
                         const memberNo = idx + 2;
                         return (
-                          <div key={memberNo} className="grid grid-cols-1 sm:grid-cols-2 gap-4 transition-all duration-300 ease-out">
+                          <div key={memberNo} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                               <label className={labelClass}>Member {memberNo} Name</label>
                               <input
@@ -390,7 +383,7 @@ const RegistrationPage = () => {
                         );
                       })}
                   </div>
-                </div>
+                )}
 
                 <div>
                   <label className={labelClass}>Upload Payment Screenshot</label>
