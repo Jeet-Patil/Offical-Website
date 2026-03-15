@@ -23,7 +23,9 @@ const RegistrationPage = () => {
     teamLeaderName: '',
     email: '',
     phone: '',
-    collegeDepartment: '',
+    college: '',
+    department: '',
+    year: '',
     teamSize: '',
     event: preSelectedEvent,
     additionalMembers: [
@@ -77,7 +79,9 @@ const RegistrationPage = () => {
     if (!formData.phone.trim() || !/^\d{10}$/.test(formData.phone.replace(/\s/g, ''))) {
       e.phone = 'Valid 10-digit phone number is required';
     }
-    if (!formData.collegeDepartment.trim()) e.collegeDepartment = 'College / Department is required';
+    if (!formData.college.trim()) e.college = 'College is required';
+    if (!formData.department.trim()) e.department = 'Department is required';
+    if (!formData.year.trim()) e.year = 'Year is required';
     if (!formData.teamSize) e.teamSize = 'Team size is required';
     if (!formData.event) e.event = 'Event name is required';
 
@@ -105,19 +109,18 @@ const RegistrationPage = () => {
     try {
       const payload = new FormData();
 
-      // API compatibility fields expected by backend
-      payload.append('fullName', formData.teamLeaderName.trim());
       payload.append('email', formData.email.trim());
       payload.append('phone', formData.phone.trim());
-      payload.append('year', 'N/A');
+      payload.append('year', formData.year.trim());
+      payload.append('department', formData.department.trim());
       payload.append('leaderName', formData.teamLeaderName.trim());
-      payload.append('leaderCollege', formData.collegeDepartment.trim());
+      payload.append('leaderCollege', formData.college.trim());
       const additionalCount = Math.max(Number(formData.teamSize || 1) - 1, 0);
       const membersPayload = formData.additionalMembers
         .slice(0, additionalCount)
         .map((member) => ({
           name: member.name.trim(),
-          college: formData.collegeDepartment.trim() || 'N/A',
+          contact: member.contact.trim(),
         }));
       payload.append('members', JSON.stringify(membersPayload));
       payload.append('event', formData.event);
@@ -126,11 +129,6 @@ const RegistrationPage = () => {
 
       // Optional metadata for future reporting
       payload.append('teamName', formData.teamName.trim());
-      payload.append('teamSize', formData.teamSize);
-      payload.append(
-        'memberContacts',
-        JSON.stringify(formData.additionalMembers.slice(0, additionalCount).map((member) => member.contact.trim()))
-      );
 
       const res = await fetch(
         `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/genesis/register`,
@@ -289,16 +287,41 @@ const RegistrationPage = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className={labelClass}>College / Department</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className={labelClass}>College</label>
+                    <input
+                      type="text"
+                      value={formData.college}
+                      onChange={(e) => update('college', e.target.value)}
+                      placeholder="Enter college name"
+                      className={inputClass('college')}
+                    />
+                    {errors.college && <p className="text-red-500 text-xs mt-1">{errors.college}</p>}
+                  </div>
+                  <div>
+                    <label className={labelClass}>Department</label>
+                    <input
+                      type="text"
+                      value={formData.department}
+                      onChange={(e) => update('department', e.target.value)}
+                      placeholder="Enter department"
+                      className={inputClass('department')}
+                    />
+                    {errors.department && <p className="text-red-500 text-xs mt-1">{errors.department}</p>}
+                  </div>
+                </div>
+
+                <div className="w-full sm:max-w-[220px]">
+                  <label className={labelClass}>Year</label>
                   <input
                     type="text"
-                    value={formData.collegeDepartment}
-                    onChange={(e) => update('collegeDepartment', e.target.value)}
-                    placeholder="Enter college or department"
-                    className={inputClass('collegeDepartment')}
+                    value={formData.year}
+                    onChange={(e) => update('year', e.target.value)}
+                    placeholder="e.g. FY, SY, TY"
+                    className={inputClass('year')}
                   />
-                  {errors.collegeDepartment && <p className="text-red-500 text-xs mt-1">{errors.collegeDepartment}</p>}
+                  {errors.year && <p className="text-red-500 text-xs mt-1">{errors.year}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

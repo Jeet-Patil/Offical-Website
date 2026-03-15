@@ -35,14 +35,16 @@ const runUpload = (req, res) =>
 
 const validate = (body, file) => {
   const e = {};
-  if (!body.fullName?.trim())
-    e.fullName = 'Full name is required';
+  if (!body.teamName?.trim())
+    e.teamName = 'Team name is required';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email || ''))
     e.email = 'Valid email is required';
   if (!/^\d{10}$/.test((body.phone || '').replace(/\s/g, '')))
     e.phone = 'Valid 10-digit phone is required';
   if (!body.year)
     e.year = 'Academic year is required';
+  if (!body.department?.trim())
+    e.department = 'Department is required';
   if (!body.event)
     e.event = 'Event is required';
   if (!body.leaderName?.trim())
@@ -80,6 +82,12 @@ router.post('/register', async (req, res) => {
     // Malformed members array — ignore, save empty
   }
 
+  // Normalize additional members to the current schema shape.
+  const normalizedMembers = members.map((member) => ({
+    name: String(member?.name || '').trim(),
+    contact: String(member?.contact || member?.college || '').trim(),
+  }));
+
   try {
     // Upload screenshot to Cloudinary
     const paymentScreenshotUrl = await uploadToCloudinary(
@@ -89,13 +97,14 @@ router.post('/register', async (req, res) => {
 
     // Save registration to MongoDB
     const registration = await Registration.create({
-      fullName:             req.body.fullName.trim(),
+      teamName:             req.body.teamName.trim(),
       email:                req.body.email.trim().toLowerCase(),
       phone:                req.body.phone.trim(),
       year:                 req.body.year,
+      department:           req.body.department.trim(),
       leaderName:           req.body.leaderName.trim(),
       leaderCollege:        req.body.leaderCollege.trim(),
-      members,
+      members:              normalizedMembers,
       event:                req.body.event,
       transactionId:        req.body.transactionId.trim(),
       paymentScreenshotUrl,

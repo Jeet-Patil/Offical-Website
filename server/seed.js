@@ -22,76 +22,81 @@ const PLACEHOLDER_PNG =
 
 const SEED_DATA = [
   {
-    fullName: 'Arjun Sharma',
+    teamName: 'Code Blazers',
     email: 'arjun.test@example.com',
     phone: '9876543810',
     year: '2nd Year',
+    department: 'Computer Engineering',
     leaderName: 'Arjun Sharma',
     leaderCollege: 'KKWIEER Nashik',
     members: [
-      { name: 'Priya Patil',    college: 'KKWIEER Nashik' },
-      { name: 'Rohit Desai',    college: 'KKWIEER Nashik' },
-      { name: 'Sneha Kulkarni', college: 'MIT Pune' },
+      { name: 'Priya Patil',    contact: '9820011111' },
+      { name: 'Rohit Desai',    contact: '9820022222' },
+      { name: 'Sneha Kulkarni', contact: '9820033333' },
     ],
     event: 'Hackathon',
     transactionId: 'TEST-TXN-001',
   },
   {
-    fullName: 'Meera Joshi',
+    teamName: 'Design Pulse',
     email: 'meer4a.test@example.com',
     phone: '9876543810',
     year: '3rd Year',
+    department: 'Information Technology',
     leaderName: 'Meera Joshi',
     leaderCollege: 'YCCE Nagpur',
     members: [
-      { name: 'Aniket Wagh', college: 'YCCE Nagpur' },
-      { name: 'Disha More',  college: 'VNIT Nagpur' },
-      { name: '',            college: '' },
+      { name: 'Aniket Wagh', contact: '9810011111' },
+      { name: 'Disha More',  contact: '9810022222' },
+      { name: '',            contact: '' },
     ],
     event: 'UI/UX Challenge',
     transactionId: 'TEST-TXN-0042',
   },
   {
-    fullName: 'Rahul Nair',
+    teamName: 'Quiz Titans',
     email: 'rahu4l.test@example.com',
     phone: '9988796695',
     year: '1st Year',
+    department: 'Electronics',
     leaderName: 'Rahul Nair',
     leaderCollege: 'SIT Pune',
     members: [
-      { name: 'Kavya Rao',    college: 'SIT Pune' },
-      { name: 'Tushar Sane',  college: 'PCCOE Pune' },
-      { name: '',             college: '' },
+      { name: 'Kavya Rao',    contact: '9830011111' },
+      { name: 'Tushar Sane',  contact: '9830022222' },
+      { name: '',             contact: '' },
     ],
     event: 'Technical Quiz',
     transactionId: 'TEST-TXN-00943',
   },
   {
-    fullName: 'Anjali Mehta',
+    teamName: 'Paper Minds',
     email: 'anjal4i.test@example.com',
     phone: '9876543810',
     year: '4th Year',
+    department: 'Computer Engineering',
     leaderName: 'Anjali Mehta',
     leaderCollege: 'COEP Pune',
     members: [
-      { name: 'Vivek Borse',  college: 'COEP Pune' },
-      { name: 'Pooja Jagtap', college: 'COEP Pune' },
-      { name: 'Nikhil Shah',  college: 'DJ Sanghvi Mumbai' },
+      { name: 'Vivek Borse',  contact: '9840011111' },
+      { name: 'Pooja Jagtap', contact: '9840022222' },
+      { name: 'Nikhil Shah',  contact: '9840033333' },
     ],
     event: 'Paper Presentation',
     transactionId: 'TEST-TXN-0044',
   },
   {
-    fullName: 'Kiran Pawar',
+    teamName: 'Bug Smashers',
     email: 'kiran.test@example.com',
     phone: '9555444333',
     year: '2nd Year',
+    department: 'Information Technology',
     leaderName: 'Kiran Pawar',
     leaderCollege: 'PICT Pune',
     members: [
-      { name: 'Siddhi Gore',   college: 'PICT Pune' },
-      { name: 'Aditya Shinde', college: 'PICT Pune' },
-      { name: '',              college: '' },
+      { name: 'Siddhi Gore',   contact: '9850011111' },
+      { name: 'Aditya Shinde', contact: '9850022222' },
+      { name: '',              contact: '' },
     ],
     event: 'Coding Contest',
     transactionId: 'TEST-TXN-005',
@@ -148,18 +153,18 @@ const run = async () => {
       // Append to Google Sheet (awaited in seed so all rows land before disconnect)
       try {
         await appendRow(registration);
-        console.log(`✓ Inserted + Sheet: ${data.fullName} — ${data.event}`);
+        console.log(`✓ Inserted + Sheet: ${data.leaderName} — ${data.event}`);
       } catch (sheetErr) {
         console.warn(`  Sheet append failed for ${data.event}:`, sheetErr.message);
-        console.log(`✓ Inserted (no sheet): ${data.fullName} — ${data.event}`);
+        console.log(`✓ Inserted (no sheet): ${data.leaderName} — ${data.event}`);
       }
       inserted++;
     } catch (err) {
       if (err.code === 11000) {
-        console.log(`  Skipped (duplicate): ${data.fullName} — ${data.event}`);
+        console.log(`  Skipped (duplicate): ${data.leaderName} — ${data.event}`);
         skipped++;
       } else {
-        console.error(`  Error for ${data.fullName}:`, err.message);
+        console.error(`  Error for ${data.leaderName}:`, err.message);
       }
     }
   }

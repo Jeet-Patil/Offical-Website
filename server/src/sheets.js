@@ -15,11 +15,11 @@ const getAuth = () =>
 /**
  * Appends one registration row to the Google Sheet.
  * Column order matches the headers added manually in Row 1:
- * Timestamp | Full Name | Email | Phone | Year |
+ * Timestamp | Team Name | Email | Phone | Year | Department |
  * Leader Name | Leader College |
- * Member 1 Name | Member 1 College |
- * Member 2 Name | Member 2 College |
- * Member 3 Name | Member 3 College |
+ * Member 1 Name | Member 1 Contact |
+ * Member 2 Name | Member 2 Contact |
+ * Member 3 Name | Member 3 Contact |
  * Event | Transaction ID | Payment Screenshot | Registration ID | Status
  */
 const appendRow = async (registration) => {
@@ -27,7 +27,7 @@ const appendRow = async (registration) => {
   const sheets = google.sheets({ version: 'v4', auth });
 
   const {
-    registeredAt, fullName, email, phone, year,
+    registeredAt, teamName, email, phone, year, department,
     leaderName, leaderCollege, members,
     event, transactionId, paymentScreenshotUrl, _id,
   } = registration;
@@ -36,18 +36,19 @@ const appendRow = async (registration) => {
 
   const row = [
     new Date(registeredAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-    fullName,
+    teamName,
     email,
     phone,
     year,
+    department,
     leaderName,
     leaderCollege,
     m(0).name    || '',
-    m(0).college || '',
+    m(0).contact || '',
     m(1).name    || '',
-    m(1).college || '',
+    m(1).contact || '',
     m(2).name    || '',
-    m(2).college || '',
+    m(2).contact || '',
     event,
     transactionId,
     paymentScreenshotUrl,
