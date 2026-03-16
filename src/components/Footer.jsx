@@ -164,9 +164,6 @@ const Footer = () => {
           <p className="text-gray-400 text-sm">
             &copy; {currentYear} DESOC - Design Society. All rights reserved.
           </p>
-          <p className="text-gray-500 text-xs mt-2">
-            Made with <span className="text-red-500">❤</span> by DESOC Tech Team
-          </p>
         </div>
       </div>
     </footer>

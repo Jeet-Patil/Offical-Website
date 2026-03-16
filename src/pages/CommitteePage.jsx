@@ -59,6 +59,7 @@ const SOCIAL_LINKS = {
   'Aditya Ahirrao': {
     linkedin: 'https://www.linkedin.com/in/aditya-ahirrao-61210721a',
     github: 'https://github.com/adityaahirrao17-stack',
+    website: 'https://www.aditya-ahirrao.online',
   },
   'Rajan Udapure': {
     linkedin: 'https://www.linkedin.com/in/rajan-u-406658328',
@@ -98,6 +99,12 @@ const CommitteePage = () => {
 
   // Committee data organized by teams
   const committeeData = {
+    faculty: {
+      title: "Faculty Coordinator",
+      members: [
+        { name: "Prof. Mrunali Pawar", role: "Faculty Coordinator", image: "https://via.placeholder.com/300x400?text=Prof.+Mrunali+Pawar" },
+      ]
+    },
     core: {
       title: "Core Committee",
       members: [
@@ -152,13 +159,20 @@ const CommitteePage = () => {
   };
 
   // Member Card Component
-  const MemberCard = ({ member, index }) => (
+  const MemberCard = ({ member, index }) => {
+    const [showIcons, setShowIcons] = useState(false);
+
+    const handleCardClick = () => {
+      setShowIcons(!showIcons);
+    };
+
+    return (
     <div
       className={`
         group relative overflow-hidden rounded-2xl
         backdrop-blur-xl border border-white/10
         transition-all duration-500 ease-out
-        hover:scale-105 hover:border-red-500/50
+        hover:scale-105 hover:border-red-500/50 cursor-pointer
         ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
       `}
       style={{ 
@@ -172,6 +186,7 @@ const CommitteePage = () => {
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.3)';
       }}
+      onClick={handleCardClick}
     >
       {/* Glow effect on hover */}
       <div 
@@ -211,13 +226,13 @@ const CommitteePage = () => {
         </p>
       </div>
 
-      {/* Right Edge Slider */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-3 pr-3 py-4 opacity-0 translate-x-8 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+      {/* Right Edge Slider - Desktop (hover) and Mobile (click) */}
+      <div className={`absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-3 pr-3 py-4 transition-all duration-500 md:opacity-0 md:translate-x-8 md:group-hover:opacity-100 md:group-hover:translate-x-0 ${showIcons ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8 md:opacity-0 md:translate-x-8'}`}>
         <a
           href={member.linkedin || 'https://linkedin.com'}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-full bg-[#1a1a1a]/80 border border-white/30 p-2.5 text-white hover:bg-[#333333] hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] opacity-0 group-hover:opacity-100"
+          className="inline-flex items-center justify-center rounded-full bg-[#1a1a1a]/80 border border-white/30 p-2.5 text-white hover:bg-[#333333] hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] md:opacity-0 md:group-hover:opacity-100"
           style={{ transitionDelay: '100ms' }}
           title="LinkedIn"
         >
@@ -229,7 +244,7 @@ const CommitteePage = () => {
           href={member.github || 'https://github.com'}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-full bg-[#1a1a1a]/80 border border-white/30 p-2.5 text-white hover:bg-[#333333] hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] opacity-0 group-hover:opacity-100"
+          className="inline-flex items-center justify-center rounded-full bg-[#1a1a1a]/80 border border-white/30 p-2.5 text-white hover:bg-[#333333] hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] md:opacity-0 md:group-hover:opacity-100"
           style={{ transitionDelay: '150ms' }}
           title="GitHub"
         >
@@ -237,9 +252,24 @@ const CommitteePage = () => {
             <path d="M12 .296C5.372.296 0 5.668 0 12.296c0 5.302 3.438 9.8 8.206 11.388.6.111.82-.261.82-.579 0-.286-.011-1.23-.016-2.23-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.303-5.467-1.333-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.006-.404c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.769.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.625-5.479 5.922.43.37.814 1.103.814 2.222 0 1.605-.015 2.898-.015 3.293 0 .321.216.694.825.576C20.565 22.092 24 17.596 24 12.296 24 5.668 18.627.296 12 .296z" />
           </svg>
         </a>
+        {member.website && (
+          <a
+            href={member.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-full bg-[#1a1a1a]/80 border border-white/30 p-2.5 text-white hover:bg-[#333333] hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] md:opacity-0 md:group-hover:opacity-100"
+            style={{ transitionDelay: '200ms' }}
+            title="Website"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        )}
       </div>
     </div>
-  );
+    );
+  };
 
   // Team Section Component
   const TeamSection = ({ teamKey, team, sectionIndex }) => (

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import desocLogo from '../assets/desoc-logo.png';
 
 // Import department images
 import deptImg1 from '../assets/dept/csd_dept.jpg';
@@ -114,17 +113,9 @@ const CSDDepartmentPage = () => {
           {/* ===== Page Header ===== */}
           <header className={`text-center mb-12 sm:mb-16 md:mb-20 transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
             <div className="relative inline-block">
-              <div className="flex justify-center mb-6">
-                <img src={desocLogo} alt="CSD Logo" className="w-20 h-20 sm:w-24 sm:h-24" />
-              </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
                 Department of Computer Science & Design
               </h1>
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="h-px w-12" style={{ background: 'linear-gradient(to right, transparent, #ef4444)' }} />
-                <span className="text-red-400 text-lg sm:text-xl md:text-2xl font-light tracking-widest">K K Wagh Institute</span>
-                <div className="h-px w-12" style={{ background: 'linear-gradient(to left, transparent, #ef4444)' }} />
-              </div>
               <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
                 Shaping the future at the intersection of Computer Science and Design — nurturing innovators, creators, and technology leaders since inception.
               </p>
@@ -146,12 +137,11 @@ const CSDDepartmentPage = () => {
                   <p className="text-gray-300 leading-relaxed">
                     With a strong emphasis on hands-on learning, industry collaboration, and interdisciplinary thinking, CSD equips students with both analytical rigor and creative problem-solving abilities. The department is home to state-of-the-art laboratories, experienced faculty, and a vibrant student community driven by the Design Society (DESOC).
                   </p>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
                     {[
                       { label: 'Students', value: '240+' },
                       { label: 'Faculty', value: '8+' },
                       { label: 'Labs', value: '6' },
-                      { label: 'Placements', value: '95%' },
                     ].map((stat) => (
                       <div key={stat.label} className="text-center p-3 rounded-xl border border-white/10 bg-white/5">
                         <p className="text-2xl sm:text-3xl font-bold text-red-400">{stat.value}</p>
@@ -373,16 +363,6 @@ const CSDDepartmentPage = () => {
 
           </div>
 
-          {/* Bottom decoration */}
-          <div className={`mt-16 sm:mt-20 flex justify-center transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '1000ms' }}>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-red-600" style={{ boxShadow: '0 0 10px rgba(220,38,38,0.8)' }} />
-              <div className="w-16 h-px" style={{ background: 'linear-gradient(to right, #dc2626, transparent)' }} />
-              <span className="text-gray-500 text-sm uppercase tracking-widest">CSD — KKWIEER</span>
-              <div className="w-16 h-px" style={{ background: 'linear-gradient(to left, #dc2626, transparent)' }} />
-              <div className="w-2 h-2 rounded-full bg-red-600" style={{ boxShadow: '0 0 10px rgba(220,38,38,0.8)' }} />
-            </div>
-          </div>
         </main>
       </div>
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import CommitteeCard from './CommiteeCard';
 import adityaImg from '../assets/members/aditya1.png';
 import ayushiImg from '../assets/members/ayushi.svg';
@@ -257,7 +258,7 @@ const Committee = () => {
 
         {/* View All Button */}
         <div className="mt-6 flex justify-center sm:justify-end sm:pr-16">
-          <button className="group inline-flex items-center justify-center px-6 py-2 text-white font-medium bg-[#bc0034] hover:bg-[#a00030] rounded transition-all duration-300">
+          <Link to="/committee" className="group inline-flex items-center justify-center px-6 py-2 text-white font-medium bg-[#bc0034] hover:bg-[#a00030] rounded transition-all duration-300">
             View All
             <svg
               className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300"
@@ -270,7 +271,7 @@ const Committee = () => {
             >
               <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
     </section>

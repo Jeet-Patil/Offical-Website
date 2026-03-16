@@ -13,6 +13,7 @@ import CSDDepartmentPage from './pages/CSDDepartmentPage';
 import ContactPage from './pages/ContactPage';
 import AlumniPage from './pages/AlumniPage';
 import AboutPage from './pages/AboutPage';
+import FlyerModal from './components/FlyerModal';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -26,6 +27,7 @@ function App() {
   return (
     <>
     <ScrollToTop />
+    <FlyerModal />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/events" element={<PastEventsPage />} />

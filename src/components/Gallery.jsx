@@ -65,18 +65,18 @@ import unleash6 from '../assets/img/unleash6.jpeg';
 const Gallery = () => {
   // Categories for filtering
   const categories = [
+    { id: 'innovera', name: 'Innovera' },
+    { id: 'shark-verse', name: 'Shark Verse' },
+    { id: 'installation', name: 'Installation' },
     { id: 'aura-esport', name: 'Aura E Sport' },
     { id: 'click-craft', name: 'Click & Craft' },
     { id: 'game-pitch', name: 'GDA' },
-    { id: 'installation', name: 'Installation' },
-    { id: 'innovera', name: 'Innovera' },
-    { id: 'shark-verse', name: 'Shark Verse' },
     { id: 'ucl', name: 'UCL' },
     { id: 'unleash', name: 'Unleash' }
   ];
 
-  // Default active tab is Aura E Sport
-  const [activeCategory, setActiveCategory] = useState('aura-esport');
+  // Default active tab is Innovera
+  const [activeCategory, setActiveCategory] = useState('innovera');
 
   // Sample images data - replace with actual images
   // Each image has: id, category, src (optional), alt, title (optional)
