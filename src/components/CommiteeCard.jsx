@@ -1,13 +1,15 @@
+import { memo } from 'react';
+
 const CommitteeCard = ({ name, role, image, isActive = false }) => {
   return (
     <div 
       className={`
-        group relative shrink-0 w-44 sm:w-48 h-80 sm:h-96 
-        overflow-hidden rounded-lg 
-        transition-all duration-400 ease-in-out
+        group relative w-full aspect-3/4
+        overflow-hidden rounded-xl
+        transition-all duration-300 ease-in-out
         ${isActive 
           ? 'scale-105 grayscale-0 opacity-100 z-10' 
-          : 'scale-90 grayscale opacity-60'
+          : 'scale-95 grayscale opacity-70'
         }
       `}
     >
@@ -15,8 +17,13 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
       <img
         src={image}
         alt={name}
+        loading="eager"
+        decoding="async"
         className="w-full h-full object-cover object-top"
       />
+
+      {/* Dark overlay for non-active cards */}
+      <div className={`absolute inset-0 transition-colors duration-300 ${isActive ? 'bg-black/20' : 'bg-black/55'}`}></div>
       
       {/* Dark Gradient Overlay at Bottom */}
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent"></div>
@@ -27,7 +34,7 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
           className={`
             font-bold text-lg uppercase tracking-wide leading-tight
             transition-colors duration-400
-            ${isActive ? 'text-white' : 'text-white/70'}
+            ${isActive ? 'text-white' : 'text-white/60'}
           `}
         >
           {name.split(' ')[0]}
@@ -36,7 +43,7 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
           className={`
             font-bold text-lg uppercase tracking-wide leading-tight
             transition-colors duration-400
-            ${isActive ? 'text-white' : 'text-white/70'}
+            ${isActive ? 'text-white' : 'text-white/60'}
           `}
         >
           {name.split(' ')[1] || ''}
@@ -45,7 +52,7 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
           className={`
             text-sm font-medium mt-1 uppercase
             transition-colors duration-400
-            ${isActive ? 'text-[#bc0034]' : 'text-[#bc0034]/50'}
+            ${isActive ? 'text-[#bc0034]' : 'text-[#bc0034]/45'}
           `}
         >
           {role}
@@ -55,4 +62,4 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
   );
 };
 
-export default CommitteeCard;
+export default memo(CommitteeCard);

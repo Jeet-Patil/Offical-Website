@@ -34,7 +34,7 @@ const CSDDepartmentPage = () => {
   }, []);
 
   const facultyMembers = [
-    { name: 'Dr. Y D Bhise', designation: 'Head of Department', specialization: 'Computer Science & Design', image: bhiseMam },
+    { name: 'Dr. Y D Bhise', designation: 'Department Coordinator', specialization: 'Computer Science & Design', image: bhiseMam },
     { name: 'Indu Seethanathan', designation: 'Assistant Professor', specialization: 'Computer Science & Design', image: induMam },
     { name: 'Vrushali Chane', designation: 'Assistant Professor', specialization: 'Computer Science & Design', image: vrushaliMam },
     { name: 'Mrunali Pawar', designation: 'Assistant Professor', specialization: 'Computer Science & Design', image: mrunaliMam },

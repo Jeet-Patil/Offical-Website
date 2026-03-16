@@ -39,16 +39,29 @@ const Committee = () => {
   const [currentIndex, setCurrentIndex] = useState(realStartIndex);
   const [enableTransition, setEnableTransition] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
+  const [cardStep, setCardStep] = useState(240);
   const trackRef = useRef(null);
   const isResettingRef = useRef(false);
+  const isAnimatingRef = useRef(false);
+  const hasHandledSwipeRef = useRef(false);
   
   // Touch swipe state
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const isSwiping = useRef(false);
 
-  // Card dimensions - responsive
-  const cardWidth = 208; // w-48 (192px) + 16px gap
+  const measureCardStep = useCallback(() => {
+    if (!trackRef.current) return;
+
+    const firstCard = trackRef.current.querySelector('[data-carousel-card="true"]');
+    if (!firstCard) return;
+
+    const styles = window.getComputedStyle(trackRef.current);
+    const gap = parseFloat(styles.gap || '16') || 16;
+    const width = firstCard.getBoundingClientRect().width;
+
+    setCardStep(width + gap);
+  }, []);
 
   // Calculate active real index for dot indicators (0 to totalSlides-1)
   const getActiveRealIndex = useCallback((index) => {
@@ -58,6 +71,8 @@ const Committee = () => {
   // Handle seamless reset when reaching clone zones
   const handleTransitionEnd = useCallback(() => {
     if (isResettingRef.current) return;
+
+    isAnimatingRef.current = false;
     
     // Went past the last real slide → now on a clone at the END
     // Need to jump back to the equivalent REAL slide at the START
@@ -105,61 +120,107 @@ const Committee = () => {
     if (isPaused || isResettingRef.current) return;
     
     const interval = setInterval(() => {
+      if (isAnimatingRef.current || isResettingRef.current) return;
+      isAnimatingRef.current = true;
       setCurrentIndex((prev) => prev + 1);
     }, 3000);
 
     return () => clearInterval(interval);
   }, [isPaused]);
 
+  useEffect(() => {
+    measureCardStep();
+
+    const handleResize = () => {
+      measureCardStep();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    let observer;
+    if (trackRef.current && typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(() => {
+        measureCardStep();
+      });
+      observer.observe(trackRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (observer) observer.disconnect();
+    };
+  }, [measureCardStep]);
+
   const handlePrev = () => {
-    if (isResettingRef.current) return;
+    if (isResettingRef.current || isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setCurrentIndex((prev) => prev - 1);
   };
 
   const handleNext = () => {
-    if (isResettingRef.current) return;
+    if (isResettingRef.current || isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setCurrentIndex((prev) => prev + 1);
   };
 
   const handleDotClick = (realIndex) => {
-    if (isResettingRef.current) return;
+    if (isResettingRef.current || isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setCurrentIndex(realIndex + realStartIndex);
   };
 
   // Touch swipe handlers
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = touchStartX.current;
     isSwiping.current = true;
+    hasHandledSwipeRef.current = false;
     setIsPaused(true);
   };
 
   const handleTouchMove = (e) => {
     if (!isSwiping.current) return;
     touchEndX.current = e.touches[0].clientX;
+
+    if (hasHandledSwipeRef.current || isAnimatingRef.current) return;
+
+    const swipeDistance = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 45;
+
+    if (Math.abs(swipeDistance) > minSwipeDistance) {
+      hasHandledSwipeRef.current = true;
+
+      if (swipeDistance > 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
   };
 
   const handleTouchEnd = () => {
     if (!isSwiping.current) return;
     isSwiping.current = false;
-    
-    const swipeDistance = touchStartX.current - touchEndX.current;
-    const minSwipeDistance = 50; // Minimum distance to trigger swipe
-    
-    if (Math.abs(swipeDistance) > minSwipeDistance) {
-      if (swipeDistance > 0) {
-        // Swiped left → go to next
-        handleNext();
-      } else {
-        // Swiped right → go to prev
-        handlePrev();
+
+    if (!hasHandledSwipeRef.current) {
+      const swipeDistance = touchStartX.current - touchEndX.current;
+      const minSwipeDistance = 45;
+
+      if (Math.abs(swipeDistance) > minSwipeDistance) {
+        if (swipeDistance > 0) {
+          handleNext();
+        } else {
+          handlePrev();
+        }
       }
     }
-    
+
     setIsPaused(false);
+    hasHandledSwipeRef.current = false;
   };
 
   // Calculate translation
-  const translateX = -currentIndex * cardWidth;
+  const translateX = -currentIndex * cardStep;
   const activeRealIndex = getActiveRealIndex(currentIndex);
 
   return (
@@ -185,7 +246,7 @@ const Committee = () => {
 
       {/* Cards Container */}
       <div 
-        className="relative bg-[#1a1a1a]/50 backdrop-blur-sm py-12 overflow-x-auto overflow-y-hidden touch-pan-y"
+        className="relative bg-[#1a1a1a]/50 backdrop-blur-sm py-10 sm:py-12 overflow-hidden touch-pan-y"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
@@ -206,27 +267,30 @@ const Committee = () => {
         <div className="flex justify-center items-center">
           <div 
             ref={trackRef}
-            className="flex gap-4 items-center"
+            className="flex gap-4 lg:gap-5 items-center will-change-transform"
             style={{ 
-              transform: `translateX(calc(50% + ${translateX}px - ${cardWidth / 2}px))`,
+              transform: `translateX(calc(50% + ${translateX}px - ${cardStep / 2}px))`,
               transition: enableTransition ? 'transform 500ms cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
             }}
             onTransitionEnd={handleTransitionEnd}
           >
             {extendedMembers.map((member, index) => {
-              // Calculate which real member this card represents (0 to totalSlides-1)
               const memberIndex = index % totalSlides;
-              // Check if this member is the currently active one
               const isActive = memberIndex === activeRealIndex;
               
               return (
-                <CommitteeCard
+                <div
                   key={member.id}
-                  name={member.name}
-                  role={member.role}
-                  image={member.image}
-                  isActive={isActive}
-                />
+                  data-carousel-card="true"
+                  className="shrink-0 w-[min(84vw,22rem)] sm:w-[min(44vw,19rem)] md:w-[min(42vw,18.5rem)] lg:w-[min(23vw,16rem)] xl:w-[min(21vw,15rem)] 2xl:w-[min(18vw,14rem)]"
+                >
+                  <CommitteeCard
+                    name={member.name}
+                    role={member.role}
+                    image={member.image}
+                    isActive={isActive}
+                  />
+                </div>
               );
             })}
           </div>
