@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 // Import member images from assets/members
+import mrunaliMam from '../assets/dept/mrunali_mam.webp';
 import adityaImg from '../assets/members/aditya1.png';
 import ayushiImg from '../assets/members/ayushi.svg';
 import jeetImg from '../assets/members/jeet.svg';
@@ -34,6 +35,11 @@ const SOCIAL_LINKS = {
     linkedin: 'https://www.linkedin.com/in/shrimant-marathe',
     github: 'https://github.com/shrimantm',
   },
+  'Ayushi Deore': {
+    linkedin: 'https://www.linkedin.com/in/ayushi-deore',
+    github: 'https://github.com/ayushideore',
+  },
+
   'Swarada Joshi': {
     linkedin: 'https://www.linkedin.com/in/swarada-joshi-334a07359',
   },
@@ -102,7 +108,7 @@ const CommitteePage = () => {
     faculty: {
       title: "Faculty Coordinator",
       members: [
-        { name: "Prof. Mrunali Pawar", role: "Faculty Coordinator", image: "https://via.placeholder.com/300x400?text=Prof.+Mrunali+Pawar" },
+        { name: "Prof. Mrunali Pawar", role: "Faculty Coordinator", image: mrunaliMam },
       ]
     },
     core: {

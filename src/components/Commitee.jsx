@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import CommitteeCard from './CommiteeCard';
+import mrunaliMam from '../assets/dept/mrunali_mam.webp';
 import adityaImg from '../assets/members/aditya1.png';
 import ayushiImg from '../assets/members/ayushi.svg';
 import vedantImg from '../assets/members/vedant.svg';
@@ -8,8 +9,10 @@ import jeetImg from '../assets/members/jeet.svg';
 import monishImg from '../assets/members/monish.svg';
 import ishaniImg from '../assets/members/ishani.svg';
 
+
 const Committee = () => {
   const committeeMembers = [
+    { id: 0, name: "Mrunali Mam", role: "Faculty Incharge", image: mrunaliMam },
     { id: 1, name: "Aditya Ahirrao", role: "President", image: adityaImg },
     { id: 2, name: "Ayushi Deore", role: "Vice President", image: ayushiImg },
     { id: 3, name: "Vedant Sonawane", role: "Event Operation Head", image: vedantImg },
