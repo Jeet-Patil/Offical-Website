@@ -42,6 +42,8 @@ const ContactPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     setIsLoaded(true);
@@ -52,12 +54,38 @@ const ContactPage = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: wire up to backend / email service
-    setSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setTimeout(() => setSubmitted(false), 4000);
+    setSubmitError('');
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/contact`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        const validationError = data?.errors
+          ? Object.values(data.errors)[0]
+          : data?.error || 'Unable to send message. Please try again.';
+        throw new Error(validationError);
+      }
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSubmitted(false), 4000);
+    } catch (err) {
+      setSubmitError(err.message || 'Unable to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socials = [
@@ -243,6 +271,12 @@ const ContactPage = () => {
                     </div>
                   )}
 
+                  {submitError && (
+                    <div className="mb-6 p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-300 text-sm">
+                      {submitError}
+                    </div>
+                  )}
+
                   <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Name & Email row */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -315,10 +349,11 @@ const ContactPage = () => {
                     {/* Submit */}
                     <button
                       type="submit"
+                      disabled={isSubmitting}
                       className="w-full sm:w-auto px-8 py-3.5 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105"
                       style={{ boxShadow: '0 0 30px rgba(220,38,38,0.25)' }}
                     >
-                      Send Message
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
                 </GlassCard>
