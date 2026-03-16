@@ -12,7 +12,7 @@ import ishaniImg from '../assets/members/ishani.svg';
 
 const Committee = () => {
   const committeeMembers = [
-    { id: 0, name: "Mrunali Mam", role: "Faculty Incharge", image: mrunaliMam },
+    { id: 0, name: "Prof. Mrunali Pawar", role: "Faculty Incharge", image: mrunaliMam },
     { id: 1, name: "Aditya Ahirrao", role: "President", image: adityaImg },
     { id: 2, name: "Ayushi Deore", role: "Vice President", image: ayushiImg },
     { id: 3, name: "Vedant Sonawane", role: "Event Operation Head", image: vedantImg },
