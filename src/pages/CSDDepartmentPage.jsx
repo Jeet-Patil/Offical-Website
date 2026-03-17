@@ -159,7 +159,7 @@ const CSDDepartmentPage = () => {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center">
                         <p className="text-5xl sm:text-6xl font-extrabold text-white">CSD</p>
-                        <p className="text-red-400 text-sm sm:text-base uppercase tracking-widest mt-2">Est. 2019</p>
+                        <p className="text-red-400 text-sm sm:text-base uppercase tracking-widest mt-2">Est. 2021</p>
                       </div>
                     </div>
                   </div>
