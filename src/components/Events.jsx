@@ -1,7 +1,6 @@
 import EventCard from './EventCard';
 import sharkverseImg from '../assets/genesis/sharkverse.jpeg';
-import unleash1Img from '../assets/unleash1.png';
-import unleash2Img from '../assets/unleash2.png';
+import escapeMatrixImg from '../assets/genesis/escape.jpeg';
 
 const Events = () => {
   const eventsData = [
@@ -17,23 +16,13 @@ const Events = () => {
     },
     {
       id: 2,
-      slug: "bid-n-build",
-      title: "Bid N Build",
-      tag: "Strategy & Innovation",
-      description: "Bid smart and build better in this strategic challenge. Teams compete to acquire resources through bidding rounds and then transform them into impactful, creative project outcomes.",
-      image: unleash1Img,
+      slug: "escape-the-matrix",
+      title: "Escape The Matrix",
+      tag: "Treasure Hunt + Escape Room",
+      description: "Crack the code. Break free. Enter a Matrix-themed challenge where teams solve connected riddles across multiple rooms, unlock locations one by one, and race to complete all four stages.",
+      image: escapeMatrixImg,
       isLive: true,
-      comingSoon: true
-    },
-    {
-      id: 3,
-      slug: "treasure-hunt",
-      title: "Tresure Hunt",
-      tag: "Adventure Challenge",
-      description: "Follow clues, solve fast-paced puzzles, and race through checkpoints in Tresure Hunt. This event blends logic, teamwork, and speed into a high-energy campus adventure.",
-      image: unleash2Img,
-      isLive: true,
-      comingSoon: true
+      comingSoon: false
     }
   ];
 

@@ -6,6 +6,7 @@ import upiqrImg from '../assets/upiqr.jpeg';
 
 const EVENT_CONFIG = {
   Sharkverse: { date: '28th March 2026', teamSize: '1-4 members', fee: 'Rs.150 per team' },
+  'Escape The Matrix': { date: '28th March 2026', teamSize: '2-4 members', fee: 'Rs.150 per team' },
 };
 
 const EVENT_OPTIONS = Object.keys(EVENT_CONFIG);

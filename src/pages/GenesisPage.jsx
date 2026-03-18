@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import sharkverseFlyer from '../assets/genesis/sharkverse.jpeg';
+import escapeFlyer from '../assets/genesis/escape.jpeg';
 
 const highlights = [
   { icon: '🏆', title: 'Cash Prizes', text: 'Cash prizes & merit certificates for top performers across all events' },
@@ -62,6 +63,30 @@ const faqs = [
   {
     q: 'When will I receive confirmation after registering?',
     a: 'A confirmation email will be sent within 24 hours of a successful payment verification.',
+  },
+];
+
+const majorEvents = [
+  {
+    key: 'sharkverse',
+    title: 'Sharkverse',
+    image: sharkverseFlyer,
+    imageAlt: 'Sharkverse Flyer',
+    description:
+      'Enter Sharkverse and pitch your startup vision to a panel of evaluators. Present your idea, defend your business model, and compete to prove why your concept deserves the spotlight.',
+    registerEvent: 'Sharkverse',
+    learnMoreTo: '/genesis/events/sharkverse',
+  },
+  {
+    key: 'escape-the-matrix',
+    title: 'Escape The Matrix',
+    tagline: 'Crack the code. Break free.',
+    image: escapeFlyer,
+    imageAlt: 'Escape The Matrix Flyer',
+    description:
+      'A fast-paced treasure hunt + escape room hybrid where your team solves connected challenges, unlocks hidden locations, and races to break out of the Matrix simulation.',
+    registerEvent: 'Escape The Matrix',
+    learnMoreTo: '/genesis/events/escape-the-matrix',
   },
 ];
 
@@ -190,39 +215,50 @@ const GenesisPage = () => {
               <div id="events" />
               <SectionTitle sub="Under Genesis">Major Events</SectionTitle>
 
-              <div className="w-[90%] max-w-245 mx-auto mt-10 sm:mt-12 mb-8 sm:mb-10 p-8 sm:p-10 rounded-2xl border border-white/10 bg-white/4 backdrop-blur-xl shadow-[0_22px_55px_rgba(0,0,0,0.45),0_0_24px_rgba(220,38,38,0.12)]">
-                <img
-                  src={sharkverseFlyer}
-                  alt="Sharkverse Flyer"
-                  className="w-full h-auto rounded-xl mb-6"
-                  loading="lazy"
-                />
-
-                <p
-                  className="mx-auto max-w-175 text-center text-gray-400 text-sm sm:text-base leading-relaxed mb-6"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  Enter Sharkverse and pitch your startup vision to a panel of evaluators. Present your idea,
-                  defend your business model, and compete to prove why your concept deserves the spotlight.
-                </p>
-
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Link
-                    to="/genesis/register"
-                    className="px-6 py-2.5 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-10 sm:mt-12 mb-8 sm:mb-10">
+                {majorEvents.map((event) => (
+                  <article
+                    key={event.key}
+                    className="group p-6 sm:p-8 rounded-2xl border border-white/10 bg-white/4 backdrop-blur-xl shadow-[0_22px_55px_rgba(0,0,0,0.45),0_0_24px_rgba(220,38,38,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-red-500/30 hover:shadow-[0_26px_60px_rgba(0,0,0,0.55),0_0_28px_rgba(220,38,38,0.2)]"
                   >
-                    Register Now
-                  </Link>
-                  <Link
-                    to="/genesis/events/sharkverse"
-                    className="inline-flex items-center justify-center gap-1.5 px-6 py-2.5 border border-red-500/40 text-red-300 text-sm font-medium uppercase tracking-wider rounded-full hover:bg-red-500/10 hover:text-red-200 hover:border-red-400/55 hover:scale-105 transition-all duration-300"
-                  >
-                    Learn More
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
+                    <img
+                      src={event.image}
+                      alt={event.imageAlt}
+                      className="w-full h-auto rounded-xl mb-5"
+                      loading="lazy"
+                    />
+
+                    <h3 className="text-white text-xl sm:text-2xl font-bold text-center tracking-wide">{event.title}</h3>
+                    {event.tagline && (
+                      <p className="text-red-300 text-center text-sm sm:text-base font-medium mt-1 mb-4">{event.tagline}</p>
+                    )}
+
+                    <p
+                      className="mx-auto max-w-175 text-center text-gray-400 text-sm sm:text-base leading-relaxed mb-6"
+                      style={{ fontFamily: 'Inter, sans-serif' }}
+                    >
+                      {event.description}
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                      <Link
+                        to={`/genesis/register?event=${encodeURIComponent(event.registerEvent)}`}
+                        className="px-6 py-2.5 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
+                      >
+                        Register Now
+                      </Link>
+                      <Link
+                        to={event.learnMoreTo}
+                        className="inline-flex items-center justify-center gap-1.5 px-6 py-2.5 border border-red-500/40 text-red-300 text-sm font-medium uppercase tracking-wider rounded-full hover:bg-red-500/10 hover:text-red-200 hover:border-red-400/55 hover:scale-105 transition-all duration-300"
+                      >
+                        Learn More
+                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
+                  </article>
+                ))}
               </div>
 
             </GlassCard>
