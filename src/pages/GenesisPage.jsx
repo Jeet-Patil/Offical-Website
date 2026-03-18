@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import sharkverseFlyer from '../assets/genesis/sharkverse.jpeg';
+import bidAndBuildFlyer from '../assets/genesis/bidnbuild.jpeg';
 import escapeFlyer from '../assets/genesis/escape.jpeg';
 
 const highlights = [
@@ -77,6 +78,17 @@ const majorEvents = [
       'Enter Sharkverse and pitch your startup vision to a panel of evaluators. Present your idea, defend your business model, and compete to prove why your concept deserves the spotlight.',
     registerEvent: 'Sharkverse',
     learnMoreTo: '/genesis/events/sharkverse',
+  },
+  {
+    key: 'bid-and-build',
+    title: 'Bid & Build',
+    tagline: 'Bid Smart. Design Bold.',
+    image: bidAndBuildFlyer,
+    imageAlt: 'Bid & Build Flyer',
+    description:
+      'A strategy-first design showdown where teams bid with virtual coins for assets and then craft a high-impact solution under time pressure.',
+    registerEvent: 'Bid & Build',
+    learnMoreTo: '/genesis/events/bid-and-build',
   },
   {
     key: 'escape-the-matrix',

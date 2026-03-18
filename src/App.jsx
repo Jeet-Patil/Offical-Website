@@ -8,6 +8,7 @@ import CommitteePage from './pages/CommitteePage';
 import GenesisPage from './pages/GenesisPage';
 import GenesisEventPage from './pages/GenesisEventPage';
 import SharkverseEventPage from './pages/SharkverseEventPage';
+import BidAndBuildEventPage from './pages/BidAndBuildEventPage';
 import EscapeTheMatrixEventPage from './pages/EscapeTheMatrixEventPage';
 import RegistrationPage from './pages/RegistrationPage';
 import CSDDepartmentPage from './pages/CSDDepartmentPage';
@@ -36,6 +37,7 @@ function App() {
       <Route path="/committee" element={<CommitteePage />} />
       <Route path="/genesis" element={<GenesisPage />} />
       <Route path="/genesis/events/sharkverse" element={<SharkverseEventPage />} />
+      <Route path="/genesis/events/bid-and-build" element={<BidAndBuildEventPage />} />
       <Route path="/genesis/events/escape-the-matrix" element={<EscapeTheMatrixEventPage />} />
       <Route path="/genesis/events/:eventId" element={<GenesisEventPage />} />
       <Route path="/genesis/register" element={<RegistrationPage />} />

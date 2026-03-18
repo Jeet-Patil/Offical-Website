@@ -6,13 +6,16 @@ import upiqrImg from '../assets/upiqr.jpeg';
 
 const EVENT_CONFIG = {
   Sharkverse: { date: '28th March 2026', teamSize: '1-4 members', fee: 'Rs.150 per team' },
+  'Bid & Build': { date: '28th March 2026', teamSize: '2-4 members', fee: 'Rs.100 per team' },
   'Escape The Matrix': { date: '27th March 2026', teamSize: '2-4 members', fee: 'Rs. 50 per person' },
 };
 
 const EVENT_OPTIONS = Object.keys(EVENT_CONFIG);
 
 const getTeamSizeLimits = (eventName) =>
-  eventName === 'Escape The Matrix' ? { min: 2, max: 4 } : { min: 1, max: 4 };
+  eventName === 'Escape The Matrix' || eventName === 'Bid & Build'
+    ? { min: 2, max: 4 }
+    : { min: 1, max: 4 };
 
 const getTeamSizeOptions = (eventName) => {
   const { min, max } = getTeamSizeLimits(eventName);
@@ -108,8 +111,8 @@ const RegistrationPage = () => {
       const { min, max } = getTeamSizeLimits(formData.event);
       if (selectedTeamSize < min || selectedTeamSize > max) {
         e.teamSize =
-          formData.event === 'Escape The Matrix'
-            ? 'Escape The Matrix allows only 2 to 4 members'
+          formData.event === 'Escape The Matrix' || formData.event === 'Bid & Build'
+            ? `${formData.event} allows only 2 to 4 members`
             : 'Selected team size is not valid for this event';
       }
     }

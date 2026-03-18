@@ -1,6 +1,7 @@
 import EventCard from './EventCard';
 import sharkverseImg from '../assets/genesis/sharkverse.jpeg';
 import escapeMatrixImg from '../assets/genesis/escape.jpeg';
+import bidnBuild from '../assets/genesis/bidnbuild.jpeg';
 
 const Events = () => {
   const eventsData = [
@@ -21,6 +22,16 @@ const Events = () => {
       tag: "Treasure Hunt + Escape Room",
       description: "Crack the code. Break free. Enter a Matrix-themed challenge where teams solve connected riddles across multiple rooms, unlock locations one by one, and race to complete all four stages.",
       image: escapeMatrixImg,
+      isLive: true,
+      comingSoon: false
+    },
+    {
+      id: 3,
+      slug: "bid-and-build",
+      title: "Bid & Build",
+      tag: "Strategy + Design + Auction",
+      description: "Bid Smart. Design Bold. A strategy-based creative showdown where teams bid for design assets with virtual coins, trade in a black market, and build a final solution under time pressure.",
+      image: bidnBuild,
       isLive: true,
       comingSoon: false
     }
