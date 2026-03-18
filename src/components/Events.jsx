@@ -9,7 +9,7 @@ const Events = () => {
       slug: "sharkverse",
       title: "Sharkverse",
       tag: "Startup Pitch Arena",
-      description: "Enter Sharkverse and pitch your startup vision to a panel of evaluators. Present your idea, defend your business model, and compete to prove why your concept deserves the spotlight.",
+      description: "Pitch. Persuade. Prosper. Enter Sharkverse and pitch your startup vision to a panel of evaluators. Present your idea, defend your business model, and compete to prove why your concept deserves the spotlight.",
       image: sharkverseImg,
       isLive: true,
       comingSoon: false

@@ -83,6 +83,7 @@ const SharkverseEventPage = () => {
             <h1 className="text-white font-black uppercase tracking-tight leading-none mb-3" style={{ fontSize: 'clamp(2.2rem, 8vw, 4rem)' }}>
               Sharkverse
             </h1>
+            
             <p className="text-gray-400 text-sm sm:text-base max-w-3xl mx-auto" style={{ fontFamily: 'Inter, sans-serif' }}>
               Simulated startup pitch arena where innovation meets strategy and investor-style decision making.
             </p>

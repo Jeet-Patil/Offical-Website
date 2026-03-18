@@ -70,6 +70,7 @@ const majorEvents = [
   {
     key: 'sharkverse',
     title: 'Sharkverse',
+    tagline: 'Pitch. Persuade. Prosper.',
     image: sharkverseFlyer,
     imageAlt: 'Sharkverse Flyer',
     description:
