@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import sharkverseImg from '../assets/genesis/sharkverse.jpeg';
+import sharkversePptTemplate from '../assets/genesis/Shark_Verse_20260318_202659_0000.pptx?url';
 
 const participationDetails = [
   { label: 'Event Date', value: '28th March 2026' },
@@ -14,6 +15,7 @@ const eventFlow = [
   {
     stage: 'Stage 1 - Screening Round',
     text: 'Teams submit their pitch decks (PPT).',
+    meta: ['Submission Deadline: 26th March, 12:00 AM'],
   },
   {
     stage: 'Stage 2 - Main Pitch',
@@ -99,6 +101,7 @@ const SharkverseEventPage = () => {
               />
             </section>
 
+
             <section className={sectionClass}>
               <SectionTitle>Event Overview</SectionTitle>
               <div className="max-w-3xl text-gray-300 text-sm sm:text-base leading-relaxed space-y-4" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -123,6 +126,45 @@ const SharkverseEventPage = () => {
                     <p className="text-gray-200 text-sm sm:text-base">{item.value}</p>
                   </div>
                 ))}
+              </div>
+            </section>
+            
+            <section className={sectionClass}>
+              <SectionTitle>PPT Template</SectionTitle>
+              <div className="relative overflow-hidden rounded-xl border border-red-500/20 bg-linear-to-br from-red-950/20 via-black/80 to-black/90 p-4 sm:p-6">
+                <div className="absolute -top-14 -right-10 w-44 h-44 rounded-full bg-red-600/15 blur-3xl" />
+                <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+                  <div className="space-y-3 max-w-2xl">
+                    <p className="text-white text-base sm:text-lg font-semibold leading-snug">
+                      Official Sharkverse Pitch Deck Template
+                    </p>
+                    <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                      Use this PPT template for Stage 1 submission to keep your deck format consistent with judging expectations.
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2.5 text-xs sm:text-sm">
+                      <span className="rounded-full border border-red-500/30 bg-red-500/10 text-red-200 px-3 py-1">
+                        .PPTX Format
+                      </span>
+                    </div>
+                  </div>
+
+                  <a
+                    href={sharkversePptTemplate}
+                    download="Sharkverse_Pitch_Template.pptx"
+                    className="group/button inline-flex w-full md:w-auto items-center justify-center gap-2 whitespace-nowrap px-6 py-3 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
+                  >
+                    Download PPT
+                    <svg
+                      className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-y-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v10m0 0l-4-4m4 4l4-4M5 20h14" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </section>
 

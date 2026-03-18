@@ -14,19 +14,19 @@ const participationDetails = [
 const rounds = [
   {
     title: 'Room 1 - Dark Room',
-    text: 'Audio-based puzzle sequence followed by a red pill / blue pill decision that determines the next clue path.',
+    // text: 'Audio-based puzzle sequence followed by a red pill / blue pill decision that determines the next clue path.',
   },
   {
     title: 'Room 2 - Lab',
-    text: 'Wordle challenge combined with a Wikipedia navigation mission to extract the required hint and unlock the next location.',
+    // text: 'Wordle challenge combined with a Wikipedia navigation mission to extract the required hint and unlock the next location.',
   },
   {
     title: 'Room 3 - Final Lab',
-    text: 'Cipher decryption and a 4-digit sequence puzzle that act as the final gate to the extraction route.',
+    // text: 'Cipher decryption and a 4-digit sequence puzzle that act as the final gate to the extraction route.',
   },
   {
     title: 'Final - Treasure Chest',
-    text: 'Successful teams locate the treasure chest and claim the prize after completing all matrix checkpoints.',
+    // text: 'Successful teams locate the treasure chest and claim the prize after completing all matrix checkpoints.',
   },
 ];
 
