@@ -239,7 +239,7 @@ const RegistrationPage = () => {
               </svg>
               Back to Event
             </Link>
-            <span className="text-gray-600 text-xs uppercase tracking-widest">DESOC Registration</span>
+            <span className="text-gray-600 text-xs uppercase tracking-widest">GENESIS Registration</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
