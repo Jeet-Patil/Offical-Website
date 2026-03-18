@@ -165,12 +165,7 @@ const BidAndBuildEventPage = () => {
               </div>
             </section>
 
-            <section className={sectionClass}>
-              <SectionTitle>Twist</SectionTitle>
-              <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-                A mystery box auction can be triggered during the design round, introducing surprise assets and forcing teams to rebalance strategy in real time.
-              </p>
-            </section>
+           
 
             <section className={sectionClass}>
               <SectionTitle>Judging Criteria</SectionTitle>
