@@ -6,10 +6,18 @@ import upiqrImg from '../assets/upiqr.jpeg';
 
 const EVENT_CONFIG = {
   Sharkverse: { date: '28th March 2026', teamSize: '1-4 members', fee: 'Rs.150 per team' },
-  'Escape The Matrix': { date: '28th March 2026', teamSize: '2-4 members', fee: 'Rs.150 per team' },
+  'Escape The Matrix': { date: '27th March 2026', teamSize: '2-4 members', fee: 'Rs. 50 per person' },
 };
 
 const EVENT_OPTIONS = Object.keys(EVENT_CONFIG);
+
+const getTeamSizeLimits = (eventName) =>
+  eventName === 'Escape The Matrix' ? { min: 2, max: 4 } : { min: 1, max: 4 };
+
+const getTeamSizeOptions = (eventName) => {
+  const { min, max } = getTeamSizeLimits(eventName);
+  return Array.from({ length: max - min + 1 }, (_, index) => String(min + index));
+};
 
 const RegistrationPage = () => {
   const [searchParams] = useSearchParams();
@@ -59,13 +67,22 @@ const RegistrationPage = () => {
 
   const handleTeamSizeChange = (value) => {
     update('teamSize', value);
-    const size = Number(value || 1);
+    const size = Number(value || 0);
     const activeMembers = Math.max(size - 1, 0);
     if (activeMembers < formData.additionalMembers.length) {
       const resetMembers = formData.additionalMembers.map((member, i) =>
         i < activeMembers ? member : { name: '', contact: '' }
       );
       setFormData((prev) => ({ ...prev, additionalMembers: resetMembers }));
+    }
+  };
+
+  const handleEventChange = (value) => {
+    update('event', value);
+    const { min, max } = getTeamSizeLimits(value);
+    const currentSize = Number(formData.teamSize || 0);
+    if (currentSize && (currentSize < min || currentSize > max)) {
+      handleTeamSizeChange('');
     }
   };
 
@@ -86,7 +103,18 @@ const RegistrationPage = () => {
     if (!formData.teamSize) e.teamSize = 'Team size is required';
     if (!formData.event) e.event = 'Event name is required';
 
-    const additionalCount = Math.max(Number(formData.teamSize || 1) - 1, 0);
+    const selectedTeamSize = Number(formData.teamSize || 0);
+    if (formData.teamSize) {
+      const { min, max } = getTeamSizeLimits(formData.event);
+      if (selectedTeamSize < min || selectedTeamSize > max) {
+        e.teamSize =
+          formData.event === 'Escape The Matrix'
+            ? 'Escape The Matrix allows only 2 to 4 members'
+            : 'Selected team size is not valid for this event';
+      }
+    }
+
+    const additionalCount = Math.max(selectedTeamSize - 1, 0);
     for (let i = 0; i < additionalCount; i += 1) {
       const member = formData.additionalMembers[i];
       if (!member.name.trim()) e[`member_${i + 2}_name`] = `Member ${i + 2} name is required`;
@@ -116,7 +144,7 @@ const RegistrationPage = () => {
       payload.append('department', formData.department.trim());
       payload.append('leaderName', formData.teamLeaderName.trim());
       payload.append('leaderCollege', formData.college.trim());
-      const additionalCount = Math.max(Number(formData.teamSize || 1) - 1, 0);
+      const additionalCount = Math.max(Number(formData.teamSize || 0) - 1, 0);
       const membersPayload = formData.additionalMembers
         .slice(0, additionalCount)
         .map((member) => ({
@@ -156,7 +184,7 @@ const RegistrationPage = () => {
     } rounded-xl px-4 py-3.5 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-red-500 transition-colors duration-200`;
 
   const labelClass = 'block text-gray-200 text-sm sm:text-base font-semibold mb-2';
-  const additionalMembersCount = Math.max(Number(formData.teamSize || 1) - 1, 0);
+  const additionalMembersCount = Math.max(Number(formData.teamSize || 0) - 1, 0);
 
   if (isSubmitted) {
     return (
@@ -229,7 +257,7 @@ const RegistrationPage = () => {
                   <label className={labelClass}>Select Event</label>
                   <select
                     value={formData.event}
-                    onChange={(e) => update('event', e.target.value)}
+                    onChange={(e) => handleEventChange(e.target.value)}
                     className={`${inputClass('event')} appearance-none`}
                   >
                     {EVENT_OPTIONS.map((event) => (
@@ -335,10 +363,9 @@ const RegistrationPage = () => {
                       className={`${inputClass('teamSize')} appearance-none`}
                     >
                       <option value="">Select team size</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
+                      {getTeamSizeOptions(formData.event).map((size) => (
+                        <option key={size} value={size}>{size}</option>
+                      ))}
                     </select>
                     {errors.teamSize && <p className="text-red-500 text-xs mt-1">{errors.teamSize}</p>}
                   </div>
