@@ -1,6 +1,10 @@
 import { memo } from 'react';
 
 const CommitteeCard = ({ name, role, image, isActive = false }) => {
+  const nameParts = name.trim().split(/\s+/);
+  const firstLine = nameParts.slice(0, -1).join(' ') || name;
+  const secondLine = nameParts.slice(-1)[0] || '';
+
   return (
     <div 
       className={`
@@ -37,7 +41,7 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
             ${isActive ? 'text-white' : 'text-white/60'}
           `}
         >
-          {name.split(' ')[0]}
+          {firstLine}
         </h3>
         <h3 
           className={`
@@ -46,7 +50,7 @@ const CommitteeCard = ({ name, role, image, isActive = false }) => {
             ${isActive ? 'text-white' : 'text-white/60'}
           `}
         >
-          {name.split(' ')[1] || ''}
+          {secondLine}
         </h3>
         <p 
           className={`
