@@ -22,7 +22,9 @@ import bhiseMam from '../assets/dept/bhise_mam.jpg';
 import induMam from '../assets/dept/indu_mam.jpg';
 import vrushaliMam from '../assets/dept/vrushali_mam.webp';
 import mrunaliMam from '../assets/dept/mrunali_mam.webp';
-import reshmaMam from '../assets/dept/reshma_mam.jpg';
+import reshmaMam from '../assets/dept/reshma_dhurjad.jpeg';
+import nilimaMam from '../assets/dept/nilima_gaidhani.jpeg';
+
 
 const CSDDepartmentPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,6 +41,7 @@ const CSDDepartmentPage = () => {
     { name: 'Vrushali Chane', designation: 'Assistant Professor', specialization: 'Computer Science & Design', image: vrushaliMam },
     { name: 'Mrunali Pawar', designation: 'Assistant Professor', specialization: 'Computer Science & Design', image: mrunaliMam },
     { name: 'Reshma Dhurjad', designation: 'Assistant Professor', specialization: 'Computer Science & Design', image: reshmaMam },
+    { name: 'Nilima Gaidhani', designation: 'Assistant Professor', specialization: 'Computer Science & Design', image: nilimaMam },
   ];
 
   const laboratories = [
