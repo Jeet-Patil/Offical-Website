@@ -1,5 +1,5 @@
-import backgroundImage from '../assets/bg.png';
-import desocLogo from '../assets/logo_home.png';
+import backgroundImage from '../assets/bg.jpg';
+import desocLogo from '../assets/logo_home1.png';
 import clgLogo from '../assets/clg_logo.svg';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
