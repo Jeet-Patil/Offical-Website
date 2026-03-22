@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import sharkverseFlyer from '../assets/genesis/sharkverse.jpeg';
+import { useNavigate } from 'react-router-dom';
+import genesisMainFlyer from '../assets/genesis/main_flyer.png';
 
 const FlyerModal = () => {
+  const navigate = useNavigate();
   const [showFlyer, setShowFlyer] = useState(false);
 
   useEffect(() => {
     // Check if user has already closed the flyer today
-    const lastClosed = localStorage.getItem('sharkverseFlyerClosed');
+    const lastClosed = localStorage.getItem('genesisFlyerClosed');
     const today = new Date().toDateString();
     
     if (lastClosed !== today) {
@@ -35,7 +37,17 @@ const FlyerModal = () => {
   const handleClose = () => {
     setShowFlyer(false);
     // Store that the flyer was closed today
-    localStorage.setItem('sharkverseFlyerClosed', new Date().toDateString());
+    localStorage.setItem('genesisFlyerClosed', new Date().toDateString());
+  };
+
+  const handleFlyerClick = () => {
+    handleClose();
+    navigate('/genesis');
+  };
+
+  const handleExploreGenesis = () => {
+    handleClose();
+    navigate('/genesis');
   };
 
   if (!showFlyer) return null;
@@ -58,14 +70,21 @@ const FlyerModal = () => {
         {/* Flyer Image */}
         <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
           <img
-            src={sharkverseFlyer}
-            alt="Sharkverse Event Flyer"
+            src={genesisMainFlyer}
+            alt="Genesis Event Flyer"
             className="w-full h-auto object-cover"
+            onClick={handleFlyerClick}
           />
           
           {/* Gradient Overlay at bottom with close hint */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/50 to-transparent p-6 text-center">
-            <p className="text-gray-300 text-sm">Click anywhere or press ESC to close</p>
+          <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black via-black/50 to-transparent p-6 text-center">
+            <p className="text-gray-300 text-sm mb-3">Click flyer to register or press ESC to close</p>
+            <button
+              onClick={handleExploreGenesis}
+              className="px-5 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white text-sm font-semibold transition-colors duration-300"
+            >
+              Explore Genesis
+            </button>
           </div>
         </div>
       </div>
