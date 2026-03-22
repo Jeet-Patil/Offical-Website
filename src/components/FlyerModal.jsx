@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import genesisMainFlyer from '../assets/genesis/main_flyer.png';
+import genesisMainFlyer from '../assets/genesis/main_flyer.webp';
 
 const FlyerModal = () => {
   const navigate = useNavigate();
@@ -19,6 +19,16 @@ const FlyerModal = () => {
       return () => clearTimeout(timer);
     }
   }, []);
+
+  useEffect(() => {
+    // Add or remove class from body to hide navbar when flyer is shown
+    if (showFlyer) {
+      document.body.classList.add('flyer-open');
+    } else {
+      document.body.classList.remove('flyer-open');
+    }
+    return () => document.body.classList.remove('flyer-open');
+  }, [showFlyer]);
 
   useEffect(() => {
     if (!showFlyer) return;
