@@ -13,9 +13,9 @@ const participationDetails = [
 
 const eventFlow = [
   {
-    stage: 'Stage 1 - Screening Round',
+    stage: 'Stage 1 - PPT Submission',
     text: 'Teams submit their pitch decks (PPT).',
-    meta: ['Submission Deadline: 26th March, 12:00 AM'],
+    meta: ['Submission Deadline: 27th March, 12:00 AM'],
   },
   {
     stage: 'Stage 2 - Main Pitch',
