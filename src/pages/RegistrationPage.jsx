@@ -11,6 +11,7 @@ const EVENT_CONFIG = {
 };
 
 const EVENT_OPTIONS = Object.keys(EVENT_CONFIG);
+const CLOSED_EVENT_NAME = 'Escape The Matrix';
 
 const getTeamSizeLimits = (eventName) =>
   eventName === 'Escape The Matrix' || eventName === 'Bid & Build'
@@ -53,6 +54,7 @@ const RegistrationPage = () => {
     () => EVENT_CONFIG[formData.event] || { teamSize: '1-4 members', fee: 'Rs.150 per team' },
     [formData.event]
   );
+  const isEventClosed = formData.event === CLOSED_EVENT_NAME;
 
   const update = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -135,6 +137,10 @@ const RegistrationPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isEventClosed) {
+      setErrors({ general: 'This event is no longer accepting registrations.' });
+      return;
+    }
     if (!validate()) return;
 
     setIsSubmitting(true);
@@ -255,6 +261,14 @@ const RegistrationPage = () => {
                 Complete the form below to register your team for the event.
               </p>
 
+              {isEventClosed && (
+                <div className="border border-red-500/45 bg-red-500/10 rounded-xl p-3.5 mb-5">
+                  <p className="text-red-300 text-sm font-semibold">
+                    This event is no longer accepting registrations.
+                  </p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className={labelClass}>Select Event</label>
@@ -264,7 +278,7 @@ const RegistrationPage = () => {
                     className={`${inputClass('event')} appearance-none`}
                   >
                     {EVENT_OPTIONS.map((event) => (
-                      <option key={event} value={event}>{event}</option>
+                      <option key={event} value={event}>{event === CLOSED_EVENT_NAME ? `${event} (Closed)` : event}</option>
                     ))}
                   </select>
                   {errors.event && <p className="text-red-500 text-xs mt-1">{errors.event}</p>}
@@ -278,6 +292,7 @@ const RegistrationPage = () => {
                     onChange={(e) => update('teamName', e.target.value)}
                     placeholder="Enter your team name"
                     className={inputClass('teamName')}
+                    disabled={isEventClosed}
                   />
                   {errors.teamName && <p className="text-red-500 text-xs mt-1">{errors.teamName}</p>}
                 </div>
@@ -290,6 +305,7 @@ const RegistrationPage = () => {
                     onChange={(e) => update('teamLeaderName', e.target.value)}
                     placeholder="Enter team leader name"
                     className={inputClass('teamLeaderName')}
+                    disabled={isEventClosed}
                   />
                   {errors.teamLeaderName && <p className="text-red-500 text-xs mt-1">{errors.teamLeaderName}</p>}
                 </div>
@@ -303,6 +319,7 @@ const RegistrationPage = () => {
                       onChange={(e) => update('email', e.target.value)}
                       placeholder="you@example.com"
                       className={inputClass('email')}
+                      disabled={isEventClosed}
                     />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
@@ -315,6 +332,7 @@ const RegistrationPage = () => {
                       onChange={(e) => update('phone', e.target.value)}
                       placeholder="9876543210"
                       className={inputClass('phone')}
+                      disabled={isEventClosed}
                     />
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                   </div>
@@ -329,6 +347,7 @@ const RegistrationPage = () => {
                       onChange={(e) => update('college', e.target.value)}
                       placeholder="Enter college name"
                       className={inputClass('college')}
+                      disabled={isEventClosed}
                     />
                     {errors.college && <p className="text-red-500 text-xs mt-1">{errors.college}</p>}
                   </div>
@@ -340,6 +359,7 @@ const RegistrationPage = () => {
                       onChange={(e) => update('department', e.target.value)}
                       placeholder="Enter department"
                       className={inputClass('department')}
+                      disabled={isEventClosed}
                     />
                     {errors.department && <p className="text-red-500 text-xs mt-1">{errors.department}</p>}
                   </div>
@@ -353,6 +373,7 @@ const RegistrationPage = () => {
                     onChange={(e) => update('year', e.target.value)}
                     placeholder="e.g. FY, SY, TY"
                     className={inputClass('year')}
+                    disabled={isEventClosed}
                   />
                   {errors.year && <p className="text-red-500 text-xs mt-1">{errors.year}</p>}
                 </div>
@@ -364,6 +385,7 @@ const RegistrationPage = () => {
                       value={formData.teamSize}
                       onChange={(e) => handleTeamSizeChange(e.target.value)}
                       className={`${inputClass('teamSize')} appearance-none`}
+                      disabled={isEventClosed}
                     >
                       <option value="">Select team size</option>
                       {getTeamSizeOptions(formData.event).map((size) => (
@@ -391,6 +413,7 @@ const RegistrationPage = () => {
                                 onChange={(e) => updateMember(idx, 'name', e.target.value)}
                                 placeholder={`Enter member ${memberNo} name`}
                                 className={inputClass(`member_${memberNo}_name`)}
+                                disabled={isEventClosed}
                               />
                               {errors[`member_${memberNo}_name`] && (
                                 <p className="text-red-500 text-xs mt-1">{errors[`member_${memberNo}_name`]}</p>
@@ -405,6 +428,7 @@ const RegistrationPage = () => {
                                 onChange={(e) => updateMember(idx, 'contact', e.target.value)}
                                 placeholder={`Enter member ${memberNo} contact`}
                                 className={inputClass(`member_${memberNo}_contact`)}
+                                disabled={isEventClosed}
                               />
                               {errors[`member_${memberNo}_contact`] && (
                                 <p className="text-red-500 text-xs mt-1">{errors[`member_${memberNo}_contact`]}</p>
@@ -428,6 +452,7 @@ const RegistrationPage = () => {
                       accept="image/jpeg,image/png,image/gif"
                       className="hidden"
                       onChange={(e) => update('paymentScreenshot', e.target.files?.[0] || null)}
+                      disabled={isEventClosed}
                     />
                     <span className="text-gray-300 text-sm text-center">
                       {formData.paymentScreenshot
@@ -446,6 +471,7 @@ const RegistrationPage = () => {
                     onChange={(e) => update('transactionId', e.target.value)}
                     placeholder="Enter UPI transaction ID"
                     className={`${inputClass('transactionId')} font-mono`}
+                    disabled={isEventClosed}
                   />
                   {errors.transactionId && <p className="text-red-500 text-xs mt-1">{errors.transactionId}</p>}
                 </div>
@@ -456,15 +482,17 @@ const RegistrationPage = () => {
                   </div>
                 )}
 
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8 py-3.5 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)] hover:scale-[1.02] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? 'Submitting...' : 'Complete Registration'}
-                  </button>
-                </div>
+                {!isEventClosed && (
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full sm:w-auto px-8 py-3.5 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)] hover:scale-[1.02] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? 'Submitting...' : 'Complete Registration'}
+                    </button>
+                  </div>
+                )}
               </form>
             </section>
 

@@ -51,6 +51,12 @@ const EscapeTheMatrixEventPage = () => {
         <div className="fixed inset-0 -z-10" style={{ background: 'radial-gradient(ellipse at bottom left, rgba(153,27,27,0.1), transparent 50%)' }} />
 
         <main className="relative px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-5xl mx-auto">
+          <div className="mb-6 rounded-xl border border-red-500/40 bg-red-500/12 px-4 py-3 sm:px-5 sm:py-4">
+            <p className="text-red-200 text-sm sm:text-base font-semibold text-center">
+              Registrations for Escape The Matrix are now closed. Thank you for the overwhelming response!
+            </p>
+          </div>
+
           <div className="mb-8">
             <Link
               to="/genesis"
@@ -130,12 +136,16 @@ const EscapeTheMatrixEventPage = () => {
 
             <section className="pt-2">
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-                <Link
-                  to="/genesis/register?event=Escape%20The%20Matrix"
-                  className="text-center px-6 py-3 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
-                >
-                  Register Now
-                </Link>
+                <div className="flex flex-col items-center gap-2">
+                  <button
+                    type="button"
+                    disabled
+                    className="text-center px-6 py-3 bg-gray-600/60 text-gray-200 font-bold uppercase tracking-wider rounded-full cursor-not-allowed border border-gray-500/50"
+                  >
+                    Registrations Closed
+                  </button>
+                  <p className="text-xs text-gray-400 tracking-wide">Stay tuned for more events!</p>
+                </div>
                 <Link
                   to="/genesis"
                   className="text-center px-6 py-3 border border-red-500/40 text-red-300 font-semibold uppercase tracking-wider rounded-full hover:bg-red-500/10 hover:text-red-200 transition-all duration-300"

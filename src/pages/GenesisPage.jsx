@@ -105,8 +105,9 @@ const majorEvents = [
     description:
       'A fast-paced treasure hunt + escape room hybrid where your team solves connected challenges, unlocks hidden locations, and races to break out of the Matrix simulation.',
     registerEvent: 'Escape The Matrix',
-    urgencyBadge: '⏳ Few Slots Left',
-    floatingLabel: '🧠 Limited Seats',
+    urgencyBadge: ' Registrations Closed',
+    
+    registrationsClosed: true,
     learnMoreTo: '/genesis/events/escape-the-matrix',
   },
 ];
@@ -316,12 +317,25 @@ const GenesisPage = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                      <Link
-                        to={`/genesis/register?event=${encodeURIComponent(event.registerEvent)}`}
-                        className="fomo-register-btn px-6 py-2.5 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
-                      >
-                        Register Now
-                      </Link>
+                      {event.registrationsClosed ? (
+                        <div className="flex flex-col items-center gap-2">
+                          <button
+                            type="button"
+                            disabled
+                            className="px-6 py-2.5 bg-gray-600/60 text-gray-200 text-sm font-bold uppercase tracking-wider rounded-full cursor-not-allowed border border-gray-500/50"
+                          >
+                            Registrations Closed
+                          </button>
+                          <p className="text-xs text-gray-400 tracking-wide">Stay tuned for more events!</p>
+                        </div>
+                      ) : (
+                        <Link
+                          to={`/genesis/register?event=${encodeURIComponent(event.registerEvent)}`}
+                          className="fomo-register-btn px-6 py-2.5 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
+                        >
+                          Register Now
+                        </Link>
+                      )}
                       <Link
                         to={event.learnMoreTo}
                         className="inline-flex items-center justify-center gap-1.5 px-6 py-2.5 border border-red-500/40 text-red-300 text-sm font-medium uppercase tracking-wider rounded-full hover:bg-red-500/10 hover:text-red-200 hover:border-red-400/55 hover:scale-105 transition-all duration-300"
