@@ -112,7 +112,7 @@ const majorEvents = [
   },
 ];
 
-const REGISTRATION_DEADLINE = '2026-03-26T21:00:00+05:30';
+const REGISTRATION_DEADLINE = '2026-03-26T23:59:00+05:30';
 const REGISTRATION_ALERT = 'Registrations Closing Soon';
 const SEATS_ALERT = 'Few Seats Left';
 
