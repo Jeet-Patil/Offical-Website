@@ -4,6 +4,8 @@ import Footer from '../components/Footer';
 import sharkverseImg from '../assets/genesis/sharkverse.jpeg';
 import sharkversePptTemplate from '../assets/genesis/Shark_Verse_20260318_202659_0000.pptx?url';
 
+const sharkversePptSubmissionLink = 'https://forms.gle/mc8DgJFryGUhnaRH6';
+
 const participationDetails = [
   { label: 'Event Date', value: '28th March 2026' },
   { label: 'Team Size', value: '1-4 members per team' },
@@ -141,6 +143,9 @@ const SharkverseEventPage = () => {
                     <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
                       Use this PPT template for Stage 1 submission to keep your deck format consistent with judging expectations.
                     </p>
+                    <p className="text-red-200/90 text-xs sm:text-sm leading-relaxed">
+                      Submit your final pitch deck here before the deadline.
+                    </p>
                     <div className="flex flex-wrap items-center gap-2.5 text-xs sm:text-sm">
                       <span className="rounded-full border border-red-500/30 bg-red-500/10 text-red-200 px-3 py-1">
                         .PPTX Format
@@ -148,22 +153,37 @@ const SharkverseEventPage = () => {
                     </div>
                   </div>
 
-                  <a
-                    href={sharkversePptTemplate}
-                    download="Sharkverse_Pitch_Template.pptx"
-                    className="group/button inline-flex w-full md:w-auto items-center justify-center gap-2 whitespace-nowrap px-6 py-3 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
-                  >
-                    Download PPT
-                    <svg
-                      className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-y-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
+                  <div className="flex w-full md:w-auto flex-col sm:flex-row md:flex-col gap-3">
+                    <a
+                      href={sharkversePptTemplate}
+                      download="Sharkverse_Pitch_Template.pptx"
+                      className="group/button inline-flex w-full md:w-auto items-center justify-center gap-2 whitespace-nowrap px-6 py-3 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v10m0 0l-4-4m4 4l4-4M5 20h14" />
-                    </svg>
-                  </a>
+                      Download PPT
+                      <svg
+                        className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-y-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v10m0 0l-4-4m4 4l4-4M5 20h14" />
+                      </svg>
+                    </a>
+
+                    <a
+                      href={sharkversePptSubmissionLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full md:w-auto items-center justify-center gap-2 whitespace-nowrap px-6 py-3 border border-red-400/50 text-red-200 text-sm font-bold uppercase tracking-wider rounded-full hover:bg-red-500/10 hover:text-white transition-all duration-300"
+                    >
+                      Submit PPT
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7m0 0v7m0-7L10 14" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </div>
             </section>
