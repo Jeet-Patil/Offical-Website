@@ -64,3 +64,77 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+@keyframes fomo-soft-blink {
+  0%,
+  100% {
+    opacity: 1;
+    filter: saturate(1);
+  }
+  50% {
+    opacity: 0.8;
+    filter: saturate(1.2);
+  }
+}
+
+@keyframes fomo-card-glow {
+  0%,
+  100% {
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45), 0 0 18px rgba(220, 38, 38, 0.08);
+  }
+  50% {
+    box-shadow: 0 24px 58px rgba(0, 0, 0, 0.5), 0 0 30px rgba(220, 38, 38, 0.24);
+  }
+}
+
+@keyframes fomo-cta-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes fomo-cta-nudge {
+  0%,
+  90%,
+  100% {
+    transform: translateX(0);
+  }
+  92% {
+    transform: translateX(-1px);
+  }
+  94% {
+    transform: translateX(1px);
+  }
+  96% {
+    transform: translateX(-1px);
+  }
+  98% {
+    transform: translateX(1px);
+  }
+}
+
+.fomo-blink {
+  animation: fomo-soft-blink 1.7s ease-in-out infinite;
+}
+
+.fomo-glow-card {
+  animation: fomo-card-glow 6s ease-in-out infinite;
+}
+
+.fomo-register-btn {
+  animation: fomo-cta-pulse 2.4s ease-in-out infinite, fomo-cta-nudge 7s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fomo-blink,
+  .fomo-glow-card,
+  .fomo-register-btn {
+    animation: none;
+  }
+}

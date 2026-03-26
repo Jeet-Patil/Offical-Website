@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import CountdownTimer from '../components/CountdownTimer';
+import RegistrationAlertBanner from '../components/RegistrationAlertBanner';
 import sharkverseFlyer from '../assets/genesis/sharkverse.jpeg';
 import bidAndBuildFlyer from '../assets/genesis/bidnbuild.jpeg';
 import escapeFlyer from '../assets/genesis/escape.jpeg';
@@ -77,6 +79,8 @@ const majorEvents = [
     description:
       'Enter Sharkverse and pitch your startup vision to a panel of evaluators. Present your idea, defend your business model, and compete to prove why your concept deserves the spotlight.',
     registerEvent: 'Sharkverse',
+    urgencyBadge: '🔥 Filling Fast',
+    floatingLabel: '🔥 Hot Event',
     learnMoreTo: '/genesis/events/sharkverse',
   },
   {
@@ -88,6 +92,8 @@ const majorEvents = [
     description:
       'A strategy-first design showdown where teams bid with virtual coins for assets and then craft a high-impact solution under time pressure.',
     registerEvent: 'Bid & Build',
+    urgencyBadge: '🔥 Filling Fast',
+    floatingLabel: '⚡ Trending',
     learnMoreTo: '/genesis/events/bid-and-build',
   },
   {
@@ -99,9 +105,15 @@ const majorEvents = [
     description:
       'A fast-paced treasure hunt + escape room hybrid where your team solves connected challenges, unlocks hidden locations, and races to break out of the Matrix simulation.',
     registerEvent: 'Escape The Matrix',
+    urgencyBadge: '⏳ Few Slots Left',
+    floatingLabel: '🧠 Limited Seats',
     learnMoreTo: '/genesis/events/escape-the-matrix',
   },
 ];
+
+const REGISTRATION_DEADLINE = '2026-03-26T21:00:00+05:30';
+const REGISTRATION_ALERT = 'Registrations Closing Soon';
+const SEATS_ALERT = 'Few Seats Left';
 
 const GenesisPage = () => {
   const [openFaq, setOpenFaq] = useState(null);
@@ -150,7 +162,8 @@ const GenesisPage = () => {
 
   return (
     <div className="min-h-screen bg-black">
-      <Navbar />
+      <RegistrationAlertBanner targetDate={REGISTRATION_DEADLINE} />
+      <Navbar topOffset={44} />
 
       {/* ===== Fixed background layers ===== */}
       <div className="relative">
@@ -160,7 +173,7 @@ const GenesisPage = () => {
         <div className="fixed inset-0 opacity-5 -z-10" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
 
         {/* ===== Main Content ===== */}
-        <main className="relative px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-7xl mx-auto">
+        <main className="relative px-4 sm:px-6 lg:px-8 pt-36 pb-16 max-w-7xl mx-auto">
 
           {/* ==============================
               HERO
@@ -204,7 +217,7 @@ const GenesisPage = () => {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   to="/genesis/register"
-                  className="px-8 sm:px-10 py-3.5 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105"
+                  className="fomo-register-btn px-8 sm:px-10 py-3.5 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105"
                   style={{ boxShadow: '0 0 30px rgba(220,38,38,0.3)' }}
                 >
                   Register Now
@@ -222,6 +235,44 @@ const GenesisPage = () => {
           <div className="space-y-10 sm:space-y-14">
 
             {/* ==============================
+                LAST CHANCE HIGHLIGHT
+            ============================== */}
+            <GlassCard delay={80}>
+              <div className="relative overflow-hidden rounded-2xl border border-red-500/40 bg-linear-to-r from-red-950/55 via-black/65 to-red-950/55 p-5 sm:p-7 shadow-[0_0_40px_rgba(220,38,38,0.2)]">
+                <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-red-500/20 blur-3xl" />
+                <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-red-800/20 blur-3xl" />
+
+                <div className="relative z-10">
+                  <h2 className="text-white text-2xl sm:text-3xl font-black tracking-wide mb-2">🚨 Last Chance to Register</h2>
+                  <p className="text-red-100/90 text-sm sm:text-base mb-5">Top events filling fast. Secure your spot before it's gone.</p>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-400/35 bg-red-500/12 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-red-300">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                        {REGISTRATION_ALERT}
+                      </span>
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-300/35 bg-amber-500/12 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-amber-200">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
+                        {SEATS_ALERT}
+                      </span>
+                      <span className="text-red-100 text-xs sm:text-sm font-semibold uppercase tracking-[0.16em]">
+                        Closing in <CountdownTimer targetDate={REGISTRATION_DEADLINE} className="text-white" />
+                      </span>
+                    </div>
+
+                    <Link
+                      to="/genesis/register"
+                      className="fomo-register-btn inline-flex w-full sm:w-auto items-center justify-center rounded-full border border-red-300/45 bg-linear-to-r from-red-700 to-red-600 px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white transition-all duration-300 hover:from-red-600 hover:to-red-500 hover:shadow-[0_0_26px_rgba(220,38,38,0.35)]"
+                    >
+                      Register Now -&gt;
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </GlassCard>
+
+            {/* ==============================
                 MAJOR EVENTS
             ============================== */}
             <GlassCard delay={100} id="events">
@@ -232,8 +283,12 @@ const GenesisPage = () => {
                 {majorEvents.map((event) => (
                   <article
                     key={event.key}
-                    className="group p-6 sm:p-8 rounded-2xl border border-white/10 bg-white/4 backdrop-blur-xl shadow-[0_22px_55px_rgba(0,0,0,0.45),0_0_24px_rgba(220,38,38,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-red-500/30 hover:shadow-[0_26px_60px_rgba(0,0,0,0.55),0_0_28px_rgba(220,38,38,0.2)]"
+                    className="fomo-glow-card group relative p-6 sm:p-8 rounded-2xl border border-white/10 bg-white/4 backdrop-blur-xl shadow-[0_22px_55px_rgba(0,0,0,0.45),0_0_24px_rgba(220,38,38,0.12)] transition-all duration-300 hover:-translate-y-1 hover:border-red-500/30 hover:shadow-[0_26px_60px_rgba(0,0,0,0.55),0_0_28px_rgba(220,38,38,0.25)]"
                   >
+                    <span className="absolute right-4 top-4 z-10 rounded-full border border-red-300/45 bg-black/65 px-3 py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.13em] text-red-100 backdrop-blur-md">
+                      {event.floatingLabel}
+                    </span>
+
                     <img
                       src={event.image}
                       alt={event.imageAlt}
@@ -246,6 +301,13 @@ const GenesisPage = () => {
                       <p className="text-red-300 text-center text-sm sm:text-base font-medium mt-1 mb-4">{event.tagline}</p>
                     )}
 
+                    <div className="flex justify-center mb-4">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-400/35 bg-red-500/12 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-red-300">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                        {event.urgencyBadge}
+                      </span>
+                    </div>
+
                     <p
                       className="mx-auto max-w-175 text-center text-gray-400 text-sm sm:text-base leading-relaxed mb-6"
                       style={{ fontFamily: 'Inter, sans-serif' }}
@@ -256,7 +318,7 @@ const GenesisPage = () => {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                       <Link
                         to={`/genesis/register?event=${encodeURIComponent(event.registerEvent)}`}
-                        className="px-6 py-2.5 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
+                        className="fomo-register-btn px-6 py-2.5 bg-linear-to-r from-red-700 to-red-600 text-white text-sm font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
                       >
                         Register Now
                       </Link>
@@ -374,6 +436,10 @@ const GenesisPage = () => {
             <GlassCard delay={500}>
               <div className="text-center py-4 sm:py-8">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">Ready to Compete?</h2>
+                <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
+                  <p className="text-red-300 text-xs sm:text-sm uppercase tracking-[0.18em]">{REGISTRATION_ALERT}</p>
+                  <p className="text-amber-200 text-xs sm:text-sm uppercase tracking-[0.18em]">{SEATS_ALERT}</p>
+                </div>
                 <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-8">
                   Genesis is designed not just as a college fest, but as a structured innovation platform that
                   encourages creativity, technical excellence, and real-world problem-solving. Every participant
@@ -381,7 +447,7 @@ const GenesisPage = () => {
                 </p>
                 <Link
                   to="/genesis/register"
-                  className="inline-block px-10 py-4 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105"
+                  className="fomo-register-btn inline-block px-10 py-4 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105"
                   style={{ boxShadow: '0 0 40px rgba(220,38,38,0.3)' }}
                 >
                   Register for Genesis

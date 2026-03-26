@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ topOffset = 0 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -24,8 +24,11 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 h-17.5 px-4 lg:px-8 flex items-center justify-end"
-      style={{ fontFamily: "'Roboto Condensed', system-ui, Avenir, Helvetica, Arial, sans-serif" }}
+      className="fixed left-0 right-0 z-50 h-17.5 px-4 lg:px-8 flex items-center justify-end"
+      style={{
+        top: `${topOffset}px`,
+        fontFamily: "'Roboto Condensed', system-ui, Avenir, Helvetica, Arial, sans-serif",
+      }}
     >
       {/* Desktop Menu - Pill Container */}
       <div className="hidden md:flex items-center h-11 bg-[#970233] rounded-full px-4 py-1.5 shadow-lg whitespace-nowrap">

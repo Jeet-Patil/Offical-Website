@@ -150,6 +150,9 @@ const EVENTS = {
   },
 };
 
+const REGISTRATION_ALERT = 'Registrations Closing Soon';
+const SEATS_ALERT = 'Few Seats Left';
+
 const GenesisEventPage = () => {
   const { eventId } = useParams();
   const event = EVENTS[eventId];
@@ -235,6 +238,18 @@ const GenesisEventPage = () => {
             <p className="text-center font-bold text-lg mb-6 tracking-wide" style={{ color: event.accentColor }}>
               {event.category}
             </p>
+            <div className="flex justify-center mb-1">
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-400/35 bg-red-500/12 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-red-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                  {REGISTRATION_ALERT}
+                </span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-300/35 bg-amber-500/12 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-amber-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
+                  {SEATS_ALERT}
+                </span>
+              </div>
+            </div>
           </header>
 
           <div className="space-y-5">
@@ -311,6 +326,14 @@ const GenesisEventPage = () => {
             </div>
 
             {/* ── CTAs ── */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+              <p className="text-center text-red-300 text-xs sm:text-sm uppercase tracking-[0.18em]">
+                {REGISTRATION_ALERT}
+              </p>
+              <p className="text-center text-amber-200 text-xs sm:text-sm uppercase tracking-[0.18em]">
+                {SEATS_ALERT}
+              </p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Link
                 to={`/genesis/register?event=${encodeURIComponent(event.registrationKey)}`}
