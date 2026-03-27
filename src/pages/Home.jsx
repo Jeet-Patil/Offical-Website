@@ -6,7 +6,7 @@ import Gallery from '../components/Gallery';
 import Footer from '../components/Footer';
 import RegistrationAlertBanner from '../components/RegistrationAlertBanner';
 
-const REGISTRATION_DEADLINE = '2026-03-26T23:59:00+05:30';
+const REGISTRATION_DEADLINE = '2026-03-27T15:59:59+05:30';
 
 const Home = () => {
   return (
