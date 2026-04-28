@@ -11,7 +11,7 @@ const EVENT_CONFIG = {
 };
 
 const EVENT_OPTIONS = Object.keys(EVENT_CONFIG);
-const CLOSED_EVENT_NAME = 'Escape The Matrix';
+const CLOSED_EVENTS = ['Sharkverse', 'Bid & Build', 'Escape The Matrix'];
 
 const getTeamSizeLimits = (eventName) =>
   eventName === 'Escape The Matrix' || eventName === 'Bid & Build'
@@ -54,7 +54,7 @@ const RegistrationPage = () => {
     () => EVENT_CONFIG[formData.event] || { teamSize: '1-4 members', fee: 'Rs.150 per team' },
     [formData.event]
   );
-  const isEventClosed = formData.event === CLOSED_EVENT_NAME;
+  const isEventClosed = CLOSED_EVENTS.includes(formData.event);
 
   const update = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -138,7 +138,7 @@ const RegistrationPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isEventClosed) {
-      setErrors({ general: 'This event is no longer accepting registrations.' });
+      setErrors({ general: 'Registrations for this event are now closed.' });
       return;
     }
     if (!validate()) return;
@@ -264,7 +264,7 @@ const RegistrationPage = () => {
               {isEventClosed && (
                 <div className="border border-red-500/45 bg-red-500/10 rounded-xl p-3.5 mb-5">
                   <p className="text-red-300 text-sm font-semibold">
-                    This event is no longer accepting registrations.
+                    Registrations for this event are now closed.
                   </p>
                 </div>
               )}
@@ -278,7 +278,7 @@ const RegistrationPage = () => {
                     className={`${inputClass('event')} appearance-none`}
                   >
                     {EVENT_OPTIONS.map((event) => (
-                      <option key={event} value={event}>{event === CLOSED_EVENT_NAME ? `${event} (Closed)` : event}</option>
+                      <option key={event} value={event}>{CLOSED_EVENTS.includes(event) ? `${event} (Closed)` : event}</option>
                     ))}
                   </select>
                   {errors.event && <p className="text-red-500 text-xs mt-1">{errors.event}</p>}

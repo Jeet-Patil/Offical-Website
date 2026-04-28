@@ -187,11 +187,18 @@ const BidAndBuildEventPage = () => {
 
             <section className="pt-2">
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-                <Link
-                  to="/genesis/register?event=Bid%20%26%20Build"
-                  className="text-center px-6 py-3 bg-linear-to-r from-red-700 to-red-600 text-white font-bold uppercase tracking-wider rounded-full hover:from-red-600 hover:to-red-500 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_28px_rgba(220,38,38,0.35)]"
+                <button
+                  type="button"
+                  disabled
+                  className="text-center px-6 py-3 bg-gray-700/60 text-gray-200 font-bold uppercase tracking-wider rounded-full cursor-not-allowed border border-gray-500/50"
                 >
-                  Register Now
+                  Registrations Closed
+                </button>
+                <Link
+                  to="/bid-and-build"
+                  className="text-center px-6 py-3 border border-amber-400/55 text-amber-200 font-semibold uppercase tracking-wider rounded-full hover:bg-amber-500/10 hover:text-amber-100 transition-all duration-300"
+                >
+                  Enter Event
                 </Link>
                 <Link
                   to="/genesis"

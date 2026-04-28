@@ -41,7 +41,3 @@
   color: #888;
 }
 
-/* Hide navbar when flyer modal is open */
-body.flyer-open nav {
-  display: none;
-}

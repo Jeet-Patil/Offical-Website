@@ -9,13 +9,13 @@ import GenesisPage from './pages/GenesisPage';
 import GenesisEventPage from './pages/GenesisEventPage';
 import SharkverseEventPage from './pages/SharkverseEventPage';
 import BidAndBuildEventPage from './pages/BidAndBuildEventPage';
+import BidAndBuildPage from './pages/BidAndBuildPage';
 import EscapeTheMatrixEventPage from './pages/EscapeTheMatrixEventPage';
 import RegistrationPage from './pages/RegistrationPage';
 import CSDDepartmentPage from './pages/CSDDepartmentPage';
 import ContactPage from './pages/ContactPage';
 import AlumniPage from './pages/AlumniPage';
 import AboutPage from './pages/AboutPage';
-import FlyerModal from './components/FlyerModal';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -29,7 +29,6 @@ function App() {
   return (
     <>
     <ScrollToTop />
-    <FlyerModal />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/events" element={<PastEventsPage />} />
@@ -38,6 +37,7 @@ function App() {
       <Route path="/genesis" element={<GenesisPage />} />
       <Route path="/genesis/events/sharkverse" element={<SharkverseEventPage />} />
       <Route path="/genesis/events/bid-and-build" element={<BidAndBuildEventPage />} />
+      <Route path="/bid-and-build" element={<BidAndBuildPage />} />
       <Route path="/genesis/events/escape-the-matrix" element={<EscapeTheMatrixEventPage />} />
       <Route path="/genesis/events/:eventId" element={<GenesisEventPage />} />
       <Route path="/genesis/register" element={<RegistrationPage />} />

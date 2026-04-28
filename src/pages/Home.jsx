@@ -4,15 +4,10 @@ import Events from '../components/Events';
 import Committee from '../components/Commitee';
 import Gallery from '../components/Gallery';
 import Footer from '../components/Footer';
-import RegistrationAlertBanner from '../components/RegistrationAlertBanner';
-
-const REGISTRATION_DEADLINE = '2026-03-27T15:59:59+05:30';
-
 const Home = () => {
   return (
     <div className="bg-black min-h-screen">
-      <RegistrationAlertBanner targetDate={REGISTRATION_DEADLINE} />
-      <Navbar topOffset={44} />
+      <Navbar />
       <Hero />
       <Events />
       <Committee />
