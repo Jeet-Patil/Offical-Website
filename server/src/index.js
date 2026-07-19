@@ -2,9 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./db');
-const registerRouter = require('./routes/register');
+// const registerRouter = require('./routes/register');
 const contactRouter = require('./routes/contact');
 const bidAndBuildRouter = require('./routes/bidAndBuild');
+const recruitmentRouter = require('./routes/recruitment');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,9 +19,10 @@ app.use(cors({
 app.use(express.json());
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
-app.use('/api/genesis', registerRouter);
+// app.use('/api/genesis', registerRouter);
 app.use('/api/contact', contactRouter);
 app.use('/api', bidAndBuildRouter);
+app.use('/api/recruitment', recruitmentRouter);
 
 connectDB().then(() => {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

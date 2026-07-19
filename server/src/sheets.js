@@ -64,4 +64,48 @@ const appendRow = async (registration) => {
   });
 };
 
-module.exports = { appendRow };
+const appendRecruitmentRow = async (application) => {
+  const auth   = getAuth();
+  const sheets = google.sheets({ version: 'v4', auth });
+
+  const {
+    appliedAt, fullName, email, mobile, yearOfStudy, branch,
+    roles, preferredRole, secondPreference, previousClubExperience,
+    leadershipExperience, github, linkedin, portfolioWebsite,
+    resumeUrl, additionalPortfolioLink, whyJoinDesoc, status, _id,
+  } = application;
+
+  const row = [
+    new Date(appliedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+    fullName,
+    email,
+    mobile,
+    yearOfStudy,
+    branch,
+    (roles || []).join(', '),
+    preferredRole,
+    secondPreference || '',
+    previousClubExperience || '',
+    leadershipExperience || '',
+    github || '',
+    linkedin || '',
+    portfolioWebsite || '',
+    resumeUrl,
+    additionalPortfolioLink || '',
+    whyJoinDesoc || '',
+    status || 'Pending',
+    String(_id),
+  ];
+
+  const recruitmentTab = process.env.GOOGLE_RECRUITMENT_TAB || 'Recruitment';
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SHEET_ID,
+    range:         `${recruitmentTab}!A1`,
+    valueInputOption: 'USER_ENTERED',
+    requestBody:   { values: [row] },
+  });
+};
+
+module.exports = { appendRow, appendRecruitmentRow };
+

@@ -14,23 +14,6 @@ const ROLES = [
   'Event Management Team',
 ];
 
-const SKILLS = [
-  'C++',
-  'Python',
-  'Java',
-  'JavaScript',
-  'React',
-  'Node.js',
-  'UI/UX',
-  'Figma',
-  'Canva',
-  'Photoshop',
-  'Video Editing',
-  'Photography',
-  'Content Writing',
-  'Public Speaking',
-  'Others',
-];
 
 const HOURS_OPTIONS = ['1-5', '5-10', '10-15', '15+'];
 
@@ -47,8 +30,6 @@ const RecruitmentPage = () => {
     roles: [],
     preferredRole: '',
     secondPreference: '',
-    skills: [],
-    otherSkills: '',
     previousClubExperience: '',
     hackathonsParticipated: '',
     eventsOrganized: '',
@@ -122,7 +103,7 @@ const RecruitmentPage = () => {
     if (!formData.branch.trim()) e.branch = 'Branch is required';
     if (formData.roles.length === 0) e.roles = 'Please select at least one role';
     if (!formData.preferredRole) e.preferredRole = 'Preferred role is required';
-    if (formData.skills.length === 0) e.skills = 'Please select at least one skill';
+    if (!formData.resumeFile) e.resumeFile = 'Resume is required';
     if (!formData.declarationAccepted) e.declarationAccepted = 'You must accept the declaration';
 
     setErrors(e);
@@ -135,55 +116,47 @@ const RecruitmentPage = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call — replace with actual endpoint later
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const payload = new FormData();
+    payload.append('fullName', formData.fullName.trim());
+    payload.append('email', formData.email.trim());
+    payload.append('mobile', formData.mobile.trim());
+    payload.append('yearOfStudy', formData.yearOfStudy.trim());
+    payload.append('branch', formData.branch.trim());
+    payload.append('roles', JSON.stringify(formData.roles));
+    payload.append('preferredRole', formData.preferredRole);
+    payload.append('secondPreference', formData.secondPreference);
+    payload.append('previousClubExperience', formData.previousClubExperience.trim());
+    payload.append('leadershipExperience', formData.leadershipExperience.trim());
+    payload.append('github', formData.github.trim());
+    payload.append('linkedin', formData.linkedin.trim());
+    payload.append('portfolioWebsite', formData.portfolioWebsite.trim());
+    payload.append('additionalPortfolioLink', formData.additionalPortfolioLink.trim());
+    payload.append('whyJoinDesoc', formData.whyJoinDesoc.trim());
 
-    // Log full payload for future backend integration
-    console.log('[Recruitment Form Submission]', {
-      personalDetails: {
-        fullName: formData.fullName.trim(),
-        email: formData.email.trim(),
-        mobile: formData.mobile.trim(),
-        yearOfStudy: formData.yearOfStudy.trim(),
-        branch: formData.branch.trim(),
-      },
-      roleSelection: {
-        selectedRoles: formData.roles,
-        preferredRole: formData.preferredRole,
-        secondPreference: formData.secondPreference,
-      },
-      skills: {
-        selected: formData.skills,
-        others: formData.otherSkills.trim(),
-      },
-      experience: {
-        previousClubExperience: formData.previousClubExperience.trim(),
-        //hackathonsParticipated: formData.hackathonsParticipated.trim(),
-        //eventsOrganized: formData.eventsOrganized.trim(),
-        leadershipExperience: formData.leadershipExperience.trim(),
-      },
-      portfolio: {
-        github: formData.github.trim(),
-        linkedin: formData.linkedin.trim(),
-        portfolioWebsite: formData.portfolioWebsite.trim(),
-        resumeFileName: formData.resumeFile?.name,
-        additionalPortfolioLink: formData.additionalPortfolioLink.trim(),
-      },
-      shortAnswers: {
-        whyJoinDesoc: formData.whyJoinDesoc.trim(),
-        whySelectYou: formData.whySelectYou.trim(),
-        valueYouBring: formData.valueYouBring.trim(),
-        projectProud: formData.projectProud.trim(),
-        teamChallenge: formData.teamChallenge.trim(),
-      },
-      availability: {
-        hoursPerWeek: formData.hoursPerWeek,
-        weekendAvailability: formData.weekendAvailability,
-      },
-    });
+    if (formData.resumeFile) {
+      payload.append('resumeFile', formData.resumeFile);
+    }
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${API_URL}/api/recruitment/apply`, {
+        method: 'POST',
+        body: payload,
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setIsSubmitted(true);
+      } else {
+        setErrors(data.errors || { submit: data.error || 'Submission failed. Please try again.' });
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setErrors({ submit: 'Network error. Please check your connection and try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleApplyNowClick = () => {
@@ -311,7 +284,7 @@ const RecruitmentPage = () => {
                     type="text"
                     value={formData.yearOfStudy}
                     onChange={(e) => update('yearOfStudy', e.target.value)}
-                    placeholder="e.g. FY, SY, TY"
+                    placeholder="e.g. SY, TY"
                     className={inputClass('yearOfStudy')}
                   />
                   {errors.yearOfStudy && (
@@ -324,7 +297,7 @@ const RecruitmentPage = () => {
                     type="text"
                     value={formData.branch}
                     onChange={(e) => update('branch', e.target.value)}
-                    placeholder="e.g. Computer Science, Electronics"
+                    placeholder="e.g. Computer Science and Design"
                     className={inputClass('branch')}
                   />
                   {errors.branch && <p className="text-red-500 text-xs mt-1">{errors.branch}</p>}
@@ -427,80 +400,6 @@ const RecruitmentPage = () => {
               </div>
             </section>
 
-            {/* Section 3 – Skills */}
-            <section className={cardClass}>
-              <h2 className="text-white text-xl font-bold mb-6 border-b border-white/10 pb-3">
-                Skills
-              </h2>
-
-              <div className="mb-4">
-                <p className="text-gray-300 text-sm font-semibold mb-3">
-                  Select your skills *
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  
-                  
-                  
-                  {SKILLS.map((skill) => {
-
-  const selected = formData.skills.includes(skill);
-
-  return (
-    <div
-      key={skill}
-      onClick={() => toggleArrayField("skills", skill)}
-      className={`cursor-pointer rounded-xl border p-4 transition-all duration-150 select-none flex items-center gap-3
-      ${
-        selected
-          ? "border-red-600 bg-red-600/15"
-          : "border-white/20 hover:border-red-500 hover:bg-white/5"
-      }`}
-    >
-      <div
-        className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-          selected
-            ? "bg-red-600 border-red-600"
-            : "border-white/30"
-        }`}
-      >
-        {selected && (
-          <svg
-            className="w-3 h-3 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={3}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
-        )}
-      </div>
-
-      <span className="text-gray-200 text-sm">{skill}</span>
-    </div>
-  );
-})}
-                </div>
-                {errors.skills && <p className="text-red-500 text-xs mt-2">{errors.skills}</p>}
-              </div>
-
-              {formData.skills.includes('Others') && (
-                <div className="mt-4">
-                  <label className={labelClass}>Specify other skills</label>
-                  <input
-                    type="text"
-                    value={formData.otherSkills}
-                    onChange={(e) => update('otherSkills', e.target.value)}
-                    placeholder="List your other skills"
-                    className={inputClass('otherSkills')}
-                  />
-                </div>
-              )}
-            </section>
 
             {/* Section 4 – Experience */}
             <section className={cardClass}>
@@ -599,9 +498,11 @@ const RecruitmentPage = () => {
                 </div>
               </div>
               <div className="mt-4">
-                <label className={labelClass}>Upload Resume</label>
+                <label className={labelClass}>Upload Resume *</label>
                 <label
-                  className={`flex items-center justify-center w-full rounded-xl border-2 border-dashed border-white/20 bg-black/20 cursor-pointer hover:border-red-500/60 transition-colors duration-200 py-8 px-4`}
+                  className={`flex items-center justify-center w-full rounded-xl border-2 border-dashed ${
+                    errors.resumeFile ? 'border-red-500 bg-red-500/5' : 'border-white/20 bg-black/20'
+                  } cursor-pointer hover:border-red-500/60 transition-colors duration-200 py-8 px-4`}
                 >
                   <input
                     type="file"
@@ -615,6 +516,7 @@ const RecruitmentPage = () => {
                       : 'Click to upload resume (PDF, DOC, DOCX)'}
                   </span>
                 </label>
+                {errors.resumeFile && <p className="text-red-500 text-xs mt-1">{errors.resumeFile}</p>}
               </div>
             </section>
 
@@ -719,51 +621,57 @@ const RecruitmentPage = () => {
               <h2 className="text-white text-xl font-bold mb-6 border-b border-white/10 pb-3">
                 Declaration
               </h2>
-              <div
-                onClick={() =>
-                update("declarationAccepted", !formData.declarationAccepted)
-                }
-                className="flex items-start gap-3 cursor-pointer select-none"
-              >
+              <div className="mb-6">
                 <div
-                  className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors flex-shrink-0 mt-0.5 ${
-                    formData.declarationAccepted
-                      ? 'bg-red-600 border-red-600'
-                      : errors.declarationAccepted
-                      ? 'border-red-500'
-                      : 'border-white/30'
-                  }`}
-                  onClick={() => update('declarationAccepted', !formData.declarationAccepted)}
+                  onClick={() =>
+                    update("declarationAccepted", !formData.declarationAccepted)
+                  }
+                  className="flex items-center gap-3 cursor-pointer select-none"
                 >
-                  {formData.declarationAccepted && (
-                    <svg
-                      className="w-3 h-3 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={3}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  )}
+                  <div
+                    className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
+                      formData.declarationAccepted
+                        ? 'bg-red-600 border-red-600'
+                        : errors.declarationAccepted
+                        ? 'border-red-500'
+                        : 'border-white/30'
+                    }`}
+                    onClick={() => update('declarationAccepted', !formData.declarationAccepted)}
+                  >
+                    {formData.declarationAccepted && (
+                      <svg
+                        className="w-3 h-3 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={3}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                  <input
+                    type="checkbox"
+                    className="hidden"
+                    checked={formData.declarationAccepted}
+                    onChange={(e) => update('declarationAccepted', e.target.checked)}
+                  />
+                  <span className="text-gray-300 text-sm leading-relaxed">
+                    I confirm that all information provided is correct and I understand that club
+                    responsibilities require commitment and teamwork. *
+                  </span>
                 </div>
-                <input
-                  type="checkbox"
-                  className="hidden"
-                  checked={formData.declarationAccepted}
-                  onChange={(e) => update('declarationAccepted', e.target.checked)}
-                />
-                <span className="text-gray-300 text-sm leading-relaxed">
-                  I confirm that all information provided is correct and I understand that club
-                  responsibilities require commitment and teamwork. *
-                </span>
+                {errors.declarationAccepted && (
+                  <p className="text-red-500 text-xs mt-2">{errors.declarationAccepted}</p>
+                )}
               </div>
-              {errors.declarationAccepted && (
-                <p className="text-red-500 text-xs mt-1 mb-4">{errors.declarationAccepted}</p>
+
+              {errors.submit && (
+                <p className="text-red-500 text-sm font-semibold mb-4">{errors.submit}</p>
               )}
 
               <button
