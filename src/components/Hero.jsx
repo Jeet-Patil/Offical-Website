@@ -80,23 +80,42 @@ const Hero = () => {
           <span className="font-bold">Design Society</span> is a community where we empower students to innovate at the intersection of design and technology, through projects, workshops, competitions and collaborations, we transform ideas into impactful digital innovative experiences.
         </p>
         
-        <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
+        {/* ── CTA Stack ── */}
+        <div className="flex flex-col items-center gap-5 sm:gap-6 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+
+          {/* Recruitment Open Badge */}
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 border border-[#970233]/60 text-[#ff8fad] text-xs font-semibold uppercase tracking-widest backdrop-blur-sm select-none">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#ff4d88] animate-pulse" />
+            Recruitment Open
+          </span>
+
+          {/* Primary CTA — Join DESOC */}
           <button
-            onClick={() => navigate('/about')}
-            className="px-6 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white font-bold text-sm sm:text-base rounded transition-colors duration-300 animate-fadeInUp"
-            style={{ animationDelay: '0.2s' }}
+            onClick={() => navigate('/recruitment')}
+            className="cta-primary cursor-pointer px-10 sm:px-14 py-4 sm:py-5 rounded-xl text-white font-extrabold text-lg sm:text-2xl tracking-wide border border-white/20"
+            style={{
+              background: 'linear-gradient(145deg, #970233 0%, #d81b60 55%, #ff4d88 100%)',
+            }}
           >
-            About us
+            🚀 JOIN DESOC
           </button>
-          <button 
-            onClick={() => navigate('/genesis')}
-            className="px-6 py-2 backdrop-blur-md border border-white/30 text-white font-bold text-sm sm:text-base rounded transition-all duration-300 animate-fadeInUp cursor-pointer" 
-            style={{background: 'linear-gradient(135deg, #970233 0%, #c41e5c 100%)', animationDelay: '0.3s'}} 
-            onMouseEnter={(e) => e.target.style.background = 'linear-gradient(135deg, #800125 0%, #a41650 100%)'} 
-            onMouseLeave={(e) => e.target.style.background = 'linear-gradient(135deg, #970233 0%, #c41e5c 100%)'}
-          >
-            GENESIS
-          </button>
+
+          {/* Secondary Buttons */}
+          <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
+            <button
+              onClick={() => navigate('/about')}
+              className="px-5 sm:px-7 py-2 sm:py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 text-white/90 hover:text-white font-semibold text-xs sm:text-sm rounded-lg transition-all duration-300 cursor-pointer"
+            >
+              About Us
+            </button>
+            <button
+              onClick={() => navigate('/genesis')}
+              className="px-5 sm:px-7 py-2 sm:py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/25 text-white/90 hover:text-white font-semibold text-xs sm:text-sm rounded-lg transition-all duration-300 cursor-pointer"
+            >
+              GENESIS
+            </button>
+          </div>
+
         </div>
       </div>
 

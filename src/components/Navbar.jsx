@@ -5,12 +5,15 @@ const Navbar = ({ topOffset = 0 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
+  const isRecruitmentOpen = true;
+
   const menuItems = [
     { name: 'Home', path: '/', type: 'route' },
     { name: 'Events', path: '/events', type: 'route' },
     { name: 'Alumni', path: '/alumni', type: 'route' },
     { name: 'Committee', path: '/committee', type: 'route' },
     { name: 'Genesis', path: '/genesis', type: 'route' },
+    { name: 'Recruitment', path: '/recruitment', type: 'route' },
     { name: 'CSD Department', path: '/csd-department', type: 'route' },
     { name: 'Gallery', path: '/#gallery', type: 'hash' },
     { name: 'Contact Us', path: '/contact', type: 'route' },
@@ -42,6 +45,11 @@ const Navbar = ({ topOffset = 0 }) => {
               }`}
             >
               {item.name}
+              {item.name === 'Recruitment' && isRecruitmentOpen && (
+                <span className="ml-1.5 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">
+                  Open
+                </span>
+              )}
             </Link>
           ) : (
             <a
@@ -76,7 +84,14 @@ const Navbar = ({ topOffset = 0 }) => {
                 className={`block text-white hover:bg-white/10 px-6 py-3 text-sm ${isActive(item) ? 'bg-white/10' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                {item.name}
+                <span className="inline-flex items-center gap-2">
+                  {item.name}
+                  {item.name === 'Recruitment' && isRecruitmentOpen && (
+                    <span className="bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">
+                      Open
+                    </span>
+                  )}
+                </span>
               </Link>
             ) : (
               <a

@@ -16,6 +16,7 @@ import CSDDepartmentPage from './pages/CSDDepartmentPage';
 import ContactPage from './pages/ContactPage';
 import AlumniPage from './pages/AlumniPage';
 import AboutPage from './pages/AboutPage';
+import RecruitmentPage from './pages/RecruitmentPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -45,6 +46,7 @@ function App() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/alumni" element={<AlumniPage />} />
+      <Route path="/recruitment" element={<RecruitmentPage />} />
     </Routes>
     </>
   );
