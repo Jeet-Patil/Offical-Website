@@ -47,18 +47,8 @@ const EventCard = ({ title, tag, description, image, isLive = false, eventSlug, 
           {/* Gradient overlay on image */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/40"></div>
           
-          {/* Live Badge - positioned on image */}
-          {isLive && !comingSoon && (
-            <div className="absolute top-4 left-4">
-              <span className="relative inline-flex items-center gap-2 bg-[#bc0034] text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg shadow-[#bc0034]/50">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                </span>
-                LIVE NOW
-              </span>
-            </div>
-          )}
+
+
         </div>
 
         {/* Content Section */}

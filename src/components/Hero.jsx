@@ -97,7 +97,7 @@ const Hero = () => {
               background: 'linear-gradient(145deg, #970233 0%, #d81b60 55%, #ff4d88 100%)',
             }}
           >
-            🚀 JOIN DESOC
+            JOIN DESOC
           </button>
 
           {/* Secondary Buttons */}

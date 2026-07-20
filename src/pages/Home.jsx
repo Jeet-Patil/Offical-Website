@@ -4,9 +4,12 @@ import Events from '../components/Events';
 import Committee from '../components/Commitee';
 import Gallery from '../components/Gallery';
 import Footer from '../components/Footer';
+import RecruitmentPopup from '../components/RecruitmentPopup';
+
 const Home = () => {
   return (
     <div className="bg-black min-h-screen">
+      <RecruitmentPopup />
       <Navbar />
       <Hero />
       <Events />
