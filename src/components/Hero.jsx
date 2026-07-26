@@ -83,23 +83,6 @@ const Hero = () => {
         {/* ── CTA Stack ── */}
         <div className="flex flex-col items-center gap-5 sm:gap-6 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
 
-          {/* Recruitment Open Badge */}
-          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 border border-[#970233]/60 text-[#ff8fad] text-xs font-semibold uppercase tracking-widest backdrop-blur-sm select-none">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#ff4d88] animate-pulse" />
-            Recruitment Open
-          </span>
-
-          {/* Primary CTA — Join DESOC */}
-          <button
-            onClick={() => navigate('/recruitment')}
-            className="cta-primary cursor-pointer px-10 sm:px-14 py-4 sm:py-5 rounded-xl text-white font-extrabold text-lg sm:text-2xl tracking-wide border border-white/20"
-            style={{
-              background: 'linear-gradient(145deg, #970233 0%, #d81b60 55%, #ff4d88 100%)',
-            }}
-          >
-            JOIN DESOC
-          </button>
-
           {/* Secondary Buttons */}
           <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
             <button

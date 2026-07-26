@@ -5,7 +5,7 @@ const Navbar = ({ topOffset = 0 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const isRecruitmentOpen = true;
+  const isRecruitmentOpen = false;
 
   const menuItems = [
     { name: 'Home', path: '/', type: 'route' },
